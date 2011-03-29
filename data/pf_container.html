@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SMArt Container Example</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+    IFRAME.oactivity {
+		height: 100%;
+		width: 100%; 
+	    box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;
+		padding-top: 4em;
+	}   
+	
+    </STYLE>
+</head>
+<body>
+<span id='PatientChoice'>No Patients Available...</span>
+<input type="submit" value="Got Statins?" onclick="javascript:clicked('got-statins@apps.smart.org');"/><input type="submit" value="MedList" onclick="javascript:clicked('medlist@apps.smart.org');"/>
+<br>
+
+<script src="http://sandbox.smartplatforms.org/static/smart_ui_server/resources/class.js"></script>
+<script src="http://sandbox.smartplatforms.org/static/smart_ui_server/resources/smart-api-container.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script src="http://sample-apps.smartplatforms.org/framework/smart/scripts/jschannel.js"></script>
+<script>
+
+var callbacks = [];
+var doMessage = function(m){
+	if (m.PatientList !== undefined) {
+		PatientList = m.PatientList;
+		var s = "<span>"+m.PatientList+"</span><select id='CurrentPatientID'>";
+		
+		for (var p in PatientList){ 
+                        p = PatientList[p]; 
+			s += "<option value='"+p.id+"'>"+p.givenName+" "+p.familyName+"</option>";
+		}
+		
+		s +="</select>";
+		$("#PatientChoice").html(s);
+	}
+	if (m.id !== undefined) {
+		callbacks[m.id](m.response);
+	}
+};
+
+var SMART_HELPER = {};
+
+SMART_HELPER.handle_record_info = function(app, callback) {
+	var p = {}, pid=null;
+        try { 
+              pid = $("#CurrentPatientID").value(); 
+   	      p = PatientList[pid];
+            } catch (e) {}
+
+	
+    callback({
+            'record' : {
+                'full_name' : p.givenName+" "+p.familyName,
+                'id' : ''+p.id
+                 },
+            'user' : {
+                'full_name' : 'Logged.In.User',
+                'id' : 'some_user_id'
+                 }
+    });
+};
+
+
+app_lookup = {
+  'medlist@apps.smart.org' : 'http://sample-apps.smartplatforms.org/framework/med_list/bootstrap.html',
+  'smart-problems@apps.smart.org' :'http://sample-apps.smartplatforms.org/framework/problem_list/bootstrap.html',
+  'got-statins@apps.smart.org' : 'http://sample-apps.smartplatforms.org/framework/got_statins/bootstrap.html'
+};
+
+SMART_HELPER.handle_start_activity = function(activity, callback) {
+
+  if (activity.name !== "main")
+  {
+    alert("Sample start_activity only known how to launch main activity.");
+  }
+
+  if (activity.app === null)
+  {
+     alert("Sample start_activity requires that you specify an app.");
+  }
+
+  var url = app_lookup[activity.app];
+  var frame_id = "app_content_iframe_"+randomUUID();
+  var frame = $('<iframe class="oactivity" src="'+url+'" id="'+frame_id+'"> </iframe><br>')
+  $('body').append(frame);
+  callback(frame[0]);
+
+};
+
+
+SMART_HELPER.handle_api = function(activity, api_call, callback)
+{
+      if (api_call.method=="GET" && api_call.func.match(/^\/capabilities\/$/))
+      {
+        callback("<?xml version='1.0'?>\
+                   <rdf:RDF xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#' >\
+                  </rdf:RDF>");
+      }
+      else if (api_call.method=="GET" && api_call.func.match(/^.*\/medications\/$/))
+      {
+		callbacks.push(callback);		
+		postToPlugin ({id: callbacks.length-1, message: api_call});
+      }
+     else
+        alert("Function " + api_call.func + " not implemented yet.");
+
+};
+
+SMART = new SMART_CONTAINER(SMART_HELPER);
+
+var clicked = function(app_id) {
+  SMART.start_activity("main", app_id);
+};
+</script>
+
+</body>
+</html>
+

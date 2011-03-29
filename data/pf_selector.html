@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SMART PF Selector</title>
+    <STYLE TYPE="text/css" MEDIA=screen>
+	body
+	{
+		background-image:url('http://sandbox.smartplatforms.org/static/smart_ui_server/resources/images/badges/SMArt-Logo.png');
+		background-repeat:no-repeat;
+		background-position:right top;
+		padding-right: 145px;
+		font-family: helvetica, arial, sans-serif;
+	} 
+	div#NeedLogin { font-size: 1em; font-weight: bold; text-align: center;}
+	div#NeedLogin a{ font-size: 1.5em; font-weight: bold;  }
+	div#AfterLogin { display: none;}
+	li a {text-decoration: none;}
+	li img {position: relative; top: 10px;}
+    </STYLE>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+</head>
+<body>
+<div id='NeedLogin'>
+Please Log in to <br> <a onclick='javascript:pflogin();' href="#">PracticeFusion</a><br> first.
+</div>
+<div id='AfterLogin'>
+<span id='PatientChoice'>No Patients Available...</span>
+<ul>
+<li>
+<a href="#" type="submit" value="Got Statins?"  onclick="javascript:clicked('got-statins@apps.smart.org');">
+	<img src="http://sample-apps.smartplatforms.org/framework/got_statins/icon.png">
+	Got Statins?
+</a>
+</li><li>
+<a href="#" type="submit" value="Med List"  onclick="javascript:clicked('medlist@apps.smart.org');">
+	<img src="http://sample-apps.smartplatforms.org/framework/med_list/icon.png">
+	Med List
+</a>
+</li>
+</ul>
+
+</div>
+<script>
+var doMessage = function(m){
+	if (m.LoggedIn && m.PatientList) {
+		$("#NeedLogin").hide();
+		$("#AfterLogin").show();
+		PatientList = m.PatientList;
+		var s = "Patient: <select id='CurrentPatientID'>";
+		
+		for (var p in PatientList){ 
+                        p = PatientList[p]; 
+			s += "<option value='"+p.id+"'>"+p.givenName+" "+p.familyName+"</option>";
+		}
+		
+		s +="</select>";
+		$("#PatientChoice").html(s);
+	}
+};
+
+var clicked = function(app_id) {
+	postToPlugin({LaunchApp: {patient: $("#CurrentPatientID").val(), app: app_id}});
+};
+
+var pflogin = function() {
+	postToPlugin({RedirectToPF: true});
+};
+
+</script>
+
+</body>
+</html>
