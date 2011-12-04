@@ -1,0 +1,2581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://PracticeFusion.com/BusinessLogic/WebServices" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://PracticeFusion.com/BusinessLogic/WebServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://PracticeFusion.com/BusinessLogic/WebServices">
+      <s:element name="PatientGetByID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_Session">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCExpiryDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="lWSCallSequenceNumber" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserID" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientGetByIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientGetByIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_Patient" type="tns:BL_Patient" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WebServiceResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:BL_Status" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAssemblyVersions" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCRequest" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCResponse" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="lExecutionTime" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Status">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="nErrorNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDisplayMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInternalMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="nSeverity" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMessageType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Patient">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPatientAccountNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCPracticeJoinDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bPatientPracticeIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCInactiveDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInactiveReasonOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bPatientPracticeIsOwner" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTestPatient" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Person" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="EmergencyContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmergencyContactRelationshipOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bEmergencyContactLegalRep" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="OtherContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOtherContactRelationshipOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bOtherContactLegalRep" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPatientGuarantor" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPatientAddressGuarantorAddress" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="GuarantorPerson" type="tns:BL_Person" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCSignatureDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCPrivacyNoticeSignatureDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCHIPAASignatureDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="sBirthSequence" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsMultipleBirth" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOccupationStatusOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strComments" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCDeath" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bPatientIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPatientInsurancePlan" type="tns:ArrayOfBL_PatientInsurancePlan" />
+          <s:element minOccurs="0" maxOccurs="1" name="strExternalReferenceGUID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPreferredMethodOfCommunicationID" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="BL_eAction">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Add" />
+          <s:enumeration value="Update" />
+          <s:enumeration value="Delete" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="BL_Person">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTitleOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOtherTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMiddleInitial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPreviousLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSuffixOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOtherSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmployerOrSchoolName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmployerOrSchoolDepartment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strJobTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailingAddress" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhysicalAddress" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhoneExtension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficeFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomeFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPager" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAlternateEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSSNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMaritalStatusOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGenderOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCBirth" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLanguageOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEthnicityOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhotograph" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNotes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsEmailVerificationRequired" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPreferredLanguageID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lEthnicityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrRaces" type="tns:ArrayOfBL_Race" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Address">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCounty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAreaCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCountry" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Race">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Race" nillable="true" type="tns:BL_Race" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Race">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strRaceName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCensusID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PatientInsurancePlan">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientInsurancePlan" nillable="true" type="tns:BL_PatientInsurancePlan" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientInsurancePlan">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsSelfInsurance" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lInsurancePlanID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuredRelationshipTypeOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtCreationDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuredIDNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGroupNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuranceSequenceOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtInactiveDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveFromDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveToDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPrimaryCarePhysicianID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lReferringProviderID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyHolderPerson" type="tns:BL_Person" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtSignatureOnFileDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsBillAutomatically" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNameOfEmployer" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhotograph" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dPaymentAmountAbsolute" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="sPaymentAmountPercentage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualDeductible" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualOutOfPocketLimit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualMaximum" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dLifetimeMaximum" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SearchPracticeForPatient">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strFirstNameMatch" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strLastNameMatch" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_sBirthYear" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_sBirthMonth" type="s:short" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_sBirthDay" type="s:short" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPatientIdentifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchPracticeForPatientResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchPracticeForPatientResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPatientSummary" type="tns:ArrayOfBL_PatientSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientSummary" nillable="true" type="tns:BL_PatientSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTestPatient" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCBirth" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGenderOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhoneExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSSNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhysicalAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAlternateEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMiddleName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsOwner" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhoto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtChartLastPulled" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strExternalReferenceGUID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientSummaryGetByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientSummaryGetByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientSummaryGetByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPatientSummary" type="tns:ArrayOfBL_PatientSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientBasicGetByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientBasicGetByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientBasicGetByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientBasic" type="tns:BL_PatientBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_PatientBasic">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMiddleName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSex" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtDateOfBirth" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtDateOfDeath" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSSN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhoneExtension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strComments" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsOwner" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strExternalReferenceGUID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPreferredMethodOfCommunicationID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPreferredLanguageID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lEthnicityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrRaces" type="tns:ArrayOfBL_Race" />
+          <s:element minOccurs="1" maxOccurs="1" name="bNoKnownMedications" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bNoKnownDiagnoses" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bNoKnownAllergies" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientInsertBasic">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_bAutogeneratePatientIdentifier" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientBasic" type="tns:BL_PatientBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsertBasicResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientInsertBasicResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientBasic" type="tns:BL_PatientBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientUpdateBasic">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_bAutogeneratePatientIdentifier" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientBasic" type="tns:BL_PatientBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientUpdateBasicResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientUpdateBasicResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientBasic" type="tns:BL_PatientBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAddressGetByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAddressGetByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAddressGetByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientAddress" type="tns:BL_PatientAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_PatientAddress">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCounty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strZipCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientUpdateAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAddress" type="tns:BL_PatientAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientUpdateAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientUpdateAddressResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAddress" type="tns:BL_PatientAddress" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientScheduleGetByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientScheduleGetByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientScheduleGetByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientSchedule" type="tns:ArrayOfBL_PatientScheduleSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientScheduleSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientScheduleSummary" nillable="true" type="tns:BL_PatientScheduleSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientScheduleSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="startDateTimeUTC" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="endDateTimeUTC" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStatus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lTranscriptID" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientDeleteAllFakePatients">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientDeleteAllFakePatientsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientDeleteAllFakePatientsResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRaces">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRacesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRacesResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrRace" type="tns:ArrayOfBL_Race" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEthnicities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEthnicitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEthnicitiesResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrEthnicity" type="tns:ArrayOfBL_Ethnicity" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_Ethnicity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Ethnicity" nillable="true" type="tns:BL_Ethnicity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Ethnicity">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEthnicityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCensusID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPreferredMethodsOfCommunication">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPreferredMethodsOfCommunicationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPreferredMethodsOfCommunicationResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPreferredMethodOfCommunication" type="tns:ArrayOfBL_PreferredMethodOfCommunication" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PreferredMethodOfCommunication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PreferredMethodOfCommunication" nillable="true" type="tns:BL_PreferredMethodOfCommunication" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PreferredMethodOfCommunication">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMethodName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllLanguages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllLanguagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllLanguagesResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrLanguage" type="tns:ArrayOfBL_Language" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_Language">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Language" nillable="true" type="tns:BL_Language" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Language">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLanguageName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPUMSCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsAmongMostCommon" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetMostCommonLanguages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMostCommonLanguagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMostCommonLanguagesResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrLanguage" type="tns:ArrayOfBL_Language" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanSummaryGetAllByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanSummaryGetAllByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientInsurancePlanSummaryGetAllByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientInsurancePlanSummarys" type="tns:ArrayOfBL_PatientInsurancePlanSummary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientInsurancePlanSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientInsurancePlanSummary" nillable="true" type="tns:BL_PatientInsurancePlanSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientInsurancePlanSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePlanName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePlanType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPriority" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveStartDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePaymentTypeOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuredIDNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveEndDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGroupNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sPaymentAmountPercentage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="dPaymentAmountAbsolute" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientInsurancePlanBasicGetByPatientInsurancePlanID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientInsurancePlanID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanBasicGetByPatientInsurancePlanIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientInsurancePlanBasicGetByPatientInsurancePlanIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientInsurancePlanBasic" type="tns:BL_PatientInsurancePlanBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_PatientInsurancePlanBasic">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePlanName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePlanType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPayerID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPriority" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strRelationshipToInsured" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuredIDNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGroupNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmployerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePaymentType" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sPaymentType" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="dPaymentAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="sPaymentPercentage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveStartDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveEndDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lGuarantorID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientInsurancePlanInsert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientInsurancePlanBasic" type="tns:BL_PatientInsurancePlanBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanInsertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientInsurancePlanInsertResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientInsurancePlanBasic" type="tns:BL_PatientInsurancePlanBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientInsurancePlanBasic" type="tns:BL_PatientInsurancePlanBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientInsurancePlanUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientInsurancePlanUpdateResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientInsurancePlanBasic" type="tns:BL_PatientInsurancePlanBasic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAppointmentReminderStatusGet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAppointmentReminderStatusGetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAppointmentReminderStatusGetResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="areRemindersEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAppointmentReminderStatusSet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="areRemindersEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAppointmentReminderStatusSetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAppointmentReminderStatusSetResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientPMHRetrieve">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientPMHRetrieveResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientPMHRetrieveResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientPMH" type="tns:ArrayOfBL_PatientPMH" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientPMH">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientPMH" nillable="true" type="tns:BL_PatientPMH" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientPMH">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="iPMHTypeID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strText" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientPMHUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientPMH" type="tns:BL_PatientPMH" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientPMHUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientPMHUpdateResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientPMH" type="tns:BL_PatientPMH" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveGetAllByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveGetAllByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAdvancedDirectiveGetAllByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientAdvancedDirectives" type="tns:ArrayOfBL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientAdvancedDirective">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientAdvancedDirective" nillable="true" type="tns:BL_PatientAdvancedDirective" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientAdvancedDirective">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtDateOfService" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAdvancedDirective" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientAdvancedDirectiveID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveInsert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveInsertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAdvancedDirectiveInsertResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAdvancedDirectiveUpdateResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveDelete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientAdvancedDirectiveDeleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientAdvancedDirectiveDeleteResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientAdvancedDirective" type="tns:BL_PatientAdvancedDirective" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationGetAllByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationGetAllByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientImmunizationGetAllByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientImmunizations" type="tns:ArrayOfBL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientImmunization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientImmunization" nillable="true" type="tns:BL_PatientImmunization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientImmunization">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lVaccineID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtDateAdministered" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strComments" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="fAdministeredAmount" type="s:double" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAdministeredUnits" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PatientImmunizationGetByPatientImmunizationID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientImmunizationID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationGetByPatientImmunizationIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientImmunizationGetByPatientImmunizationIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationInsert">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationInsertResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientImmunizationInsertResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationUpdate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationUpdateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientImmunizationUpdateResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationDelete">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientImmunizationDeleteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientImmunizationDeleteResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="io_PatientImmunization" type="tns:BL_PatientImmunization" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientUpdateNoKnownStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_NoKnownType" type="tns:NoKnownStatusType" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_bNoKnownStatus" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="NoKnownStatusType">
+        <s:restriction base="s:string">
+          <s:enumeration value="NoKnownAllergies" />
+          <s:enumeration value="NoKnownDiagnoses" />
+          <s:enumeration value="NoKnownMedications" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PatientUpdateNoKnownStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientUpdateNoKnownStatusResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bSuccess" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChartAccessGetByPatientID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_dtAsOfUTCDateTime" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ChartAccessGetByPatientIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ChartAccessGetByPatientIDResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrChartAccess" type="tns:ArrayOfBL_ChartAccess" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_ChartAccess">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_ChartAccess" nillable="true" type="tns:BL_ChartAccess" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_ChartAccess">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lProviderID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAccessedPracticeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAccessedProviderName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAccessedFromIP" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtAccessedAtUTC" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSmokingStatuses">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSmokingStatusesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSmokingStatusesResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrSmokingStatuses" type="tns:ArrayOfBL_SmokingStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_SmokingStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_SmokingStatus" nillable="true" type="tns:BL_SmokingStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_SmokingStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="iNISTcode" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPatientSmokingHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientSmokingHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPatientSmokingHistoryResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_PatientSmokingHistory" type="tns:BL_PatientSmokingHistory" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_PatientSmokingHistory">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPatientSmokingStatuses" type="tns:ArrayOfBL_PatientSmokingStatus" />
+          <s:element minOccurs="1" maxOccurs="1" name="iPackYears" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PatientSmokingStatus">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientSmokingStatus" nillable="true" type="tns:BL_PatientSmokingStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientSmokingStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPatientID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lTranscriptID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSmokingStatusID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtEffectiveDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bDeleted" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SavePatientSmokingStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_PatientSmokingStatus" type="tns:BL_PatientSmokingStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SavePatientSmokingStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SavePatientSmokingStatusResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_newPatientSmokingStatus" type="tns:BL_PatientSmokingStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientBasicGetBySearchCriteria">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_eGenderType" type="tns:GenderType" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPreferredLanguageID" nillable="true" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lEthnicityID" nillable="true" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_iAgeRangeMinimum" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_iAgeRangeMaximum" nillable="true" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_arrRaceIDs" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_arrAllergyProductCodes" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_arrDiagnosisTypeIDs" type="tns:ArrayOfLong" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_arrMedicationProductCodes" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_arrLabObservationSearchCriteria" type="tns:ArrayOfBL_LabObservationSearchCriterion" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="GenderType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unspecified" />
+          <s:enumeration value="Male" />
+          <s:enumeration value="Female" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLong">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="long" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_LabObservationSearchCriterion">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_LabObservationSearchCriterion" nillable="true" type="tns:BL_LabObservationSearchCriterion" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_LabObservationSearchCriterion">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lLoincCategoryID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eLoincCompareOperator" type="tns:LoincCompareOperator" />
+          <s:element minOccurs="1" maxOccurs="1" name="dLoincComparisonValue" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="LoincCompareOperator">
+        <s:restriction base="s:string">
+          <s:enumeration value="Equals" />
+          <s:enumeration value="LessThan" />
+          <s:enumeration value="LessThanEqual" />
+          <s:enumeration value="GreaterThan" />
+          <s:enumeration value="GreaterThanEqual" />
+          <s:enumeration value="NotEqual" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="PatientBasicGetBySearchCriteriaResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientBasicGetBySearchCriteriaResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bTooManyRecordsReturned" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPatientListItems" type="tns:ArrayOfBL_PatientListItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_PatientListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientListItem" nillable="true" type="tns:BL_PatientListItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientListItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="oPatientBasic" type="tns:BL_PatientBasic" />
+          <s:element minOccurs="0" maxOccurs="1" name="oAddress" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="oDiagnoses" type="tns:ArrayOfBL_Diagnosis" />
+          <s:element minOccurs="0" maxOccurs="1" name="oMedications" type="tns:ArrayOfBL_Medication" />
+          <s:element minOccurs="0" maxOccurs="1" name="oAllergyMedications" type="tns:ArrayOfBL_Medication" />
+          <s:element minOccurs="0" maxOccurs="1" name="oLabObservations" type="tns:ArrayOfBL_LabObservation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Diagnosis">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Diagnosis" nillable="true" type="tns:BL_Diagnosis" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Diagnosis">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Medication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Medication" nillable="true" type="tns:BL_Medication" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Medication">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="iDrugSubsystemID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDrugCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strBrandName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDrugName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strProductStrengthDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strRouteDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDoseFormDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsGeneric" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsOverTheCounter" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strControlledSubstanceSchedule" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsMedicalSupply" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_LabObservation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_LabObservation" nillable="true" type="tns:BL_LabObservation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_LabObservation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lLabPanelID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLocalCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLocalName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLOINCCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLOINCName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUnits" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strReferenceRange" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsAbnormal" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFlags" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTestResultStatus" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtObservationDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLabObserver" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strValue" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLabIndex" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrNotes" type="tns:ArrayOfBL_LabObservationNote" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_LabObservationNote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_LabObservationNote" nillable="true" type="tns:BL_LabObservationNote" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_LabObservationNote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lLabObservationID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSequence" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="str64Comment" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPatientImmunizationRegistry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientImmunizationRegistryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPatientImmunizationRegistryResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strPatientImmunizationRegistry" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientHealthSurveillance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPatientHealthSurveillanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPatientHealthSurveillanceResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strPatientHealthSurveillance" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientListExported">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPracticeID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientListExportedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientListExportedResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientEducationActionPerformed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lPatientID" type="s:long" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lSearchTypeID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strSearchCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PatientEducationActionPerformedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PatientEducationActionPerformedResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strSearchTerm" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PatientGetByIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientGetByID" />
+  </wsdl:message>
+  <wsdl:message name="PatientGetByIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientGetByIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchPracticeForPatientSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchPracticeForPatient" />
+  </wsdl:message>
+  <wsdl:message name="SearchPracticeForPatientSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchPracticeForPatientResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientSummaryGetByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientSummaryGetByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientSummaryGetByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientSummaryGetByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientBasicGetByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientBasicGetByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientBasicGetByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientBasicGetByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsertBasicSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientInsertBasic" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsertBasicSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientInsertBasicResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateBasicSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientUpdateBasic" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateBasicSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientUpdateBasicResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAddressGetByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAddressGetByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientAddressGetByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAddressGetByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientUpdateAddress" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientUpdateAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientScheduleGetByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientScheduleGetByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientScheduleGetByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientScheduleGetByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientDeleteAllFakePatientsSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientDeleteAllFakePatients" />
+  </wsdl:message>
+  <wsdl:message name="PatientDeleteAllFakePatientsSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientDeleteAllFakePatientsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRacesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRaces" />
+  </wsdl:message>
+  <wsdl:message name="GetRacesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRacesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEthnicitiesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEthnicities" />
+  </wsdl:message>
+  <wsdl:message name="GetEthnicitiesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEthnicitiesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPreferredMethodsOfCommunicationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPreferredMethodsOfCommunication" />
+  </wsdl:message>
+  <wsdl:message name="GetPreferredMethodsOfCommunicationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPreferredMethodsOfCommunicationResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLanguagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllLanguages" />
+  </wsdl:message>
+  <wsdl:message name="GetAllLanguagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllLanguagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMostCommonLanguagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMostCommonLanguages" />
+  </wsdl:message>
+  <wsdl:message name="GetMostCommonLanguagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMostCommonLanguagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanSummaryGetAllByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanSummaryGetAllByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanSummaryGetAllByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanSummaryGetAllByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanBasicGetByPatientInsurancePlanIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanBasicGetByPatientInsurancePlanID" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanBasicGetByPatientInsurancePlanIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanBasicGetByPatientInsurancePlanIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanInsertSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanInsert" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanInsertSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanUpdate" />
+  </wsdl:message>
+  <wsdl:message name="PatientInsurancePlanUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientInsurancePlanUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAppointmentReminderStatusGetSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAppointmentReminderStatusGet" />
+  </wsdl:message>
+  <wsdl:message name="PatientAppointmentReminderStatusGetSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAppointmentReminderStatusGetResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAppointmentReminderStatusSetSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAppointmentReminderStatusSet" />
+  </wsdl:message>
+  <wsdl:message name="PatientAppointmentReminderStatusSetSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAppointmentReminderStatusSetResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientPMHRetrieveSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientPMHRetrieve" />
+  </wsdl:message>
+  <wsdl:message name="PatientPMHRetrieveSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientPMHRetrieveResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientPMHUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientPMHUpdate" />
+  </wsdl:message>
+  <wsdl:message name="PatientPMHUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientPMHUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveGetAllByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveGetAllByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveGetAllByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveGetAllByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveInsertSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveInsert" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveInsertSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveUpdate" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveDeleteSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveDelete" />
+  </wsdl:message>
+  <wsdl:message name="PatientAdvancedDirectiveDeleteSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientAdvancedDirectiveDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationGetAllByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationGetAllByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationGetAllByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationGetAllByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationGetByPatientImmunizationIDSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationGetByPatientImmunizationID" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationGetByPatientImmunizationIDSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationGetByPatientImmunizationIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationInsertSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationInsert" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationInsertSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationInsertResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationUpdateSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationUpdate" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationUpdateSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationUpdateResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationDeleteSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationDelete" />
+  </wsdl:message>
+  <wsdl:message name="PatientImmunizationDeleteSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientImmunizationDeleteResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateNoKnownStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientUpdateNoKnownStatus" />
+  </wsdl:message>
+  <wsdl:message name="PatientUpdateNoKnownStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientUpdateNoKnownStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="ChartAccessGetByPatientIDSoapIn">
+    <wsdl:part name="parameters" element="tns:ChartAccessGetByPatientID" />
+  </wsdl:message>
+  <wsdl:message name="ChartAccessGetByPatientIDSoapOut">
+    <wsdl:part name="parameters" element="tns:ChartAccessGetByPatientIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSmokingStatusesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSmokingStatuses" />
+  </wsdl:message>
+  <wsdl:message name="GetSmokingStatusesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSmokingStatusesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientSmokingHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPatientSmokingHistory" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientSmokingHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPatientSmokingHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="SavePatientSmokingStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SavePatientSmokingStatus" />
+  </wsdl:message>
+  <wsdl:message name="SavePatientSmokingStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SavePatientSmokingStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientBasicGetBySearchCriteriaSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientBasicGetBySearchCriteria" />
+  </wsdl:message>
+  <wsdl:message name="PatientBasicGetBySearchCriteriaSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientBasicGetBySearchCriteriaResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientImmunizationRegistrySoapIn">
+    <wsdl:part name="parameters" element="tns:GetPatientImmunizationRegistry" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientImmunizationRegistrySoapOut">
+    <wsdl:part name="parameters" element="tns:GetPatientImmunizationRegistryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientHealthSurveillanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPatientHealthSurveillance" />
+  </wsdl:message>
+  <wsdl:message name="GetPatientHealthSurveillanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPatientHealthSurveillanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientListExportedSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientListExported" />
+  </wsdl:message>
+  <wsdl:message name="PatientListExportedSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientListExportedResponse" />
+  </wsdl:message>
+  <wsdl:message name="PatientEducationActionPerformedSoapIn">
+    <wsdl:part name="parameters" element="tns:PatientEducationActionPerformed" />
+  </wsdl:message>
+  <wsdl:message name="PatientEducationActionPerformedSoapOut">
+    <wsdl:part name="parameters" element="tns:PatientEducationActionPerformedResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PatientSoap">
+    <wsdl:operation name="PatientGetByID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches a whole BL_Patient business object tree, given the Patient and Practice IDs.</wsdl:documentation>
+      <wsdl:input message="tns:PatientGetByIDSoapIn" />
+      <wsdl:output message="tns:PatientGetByIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchPracticeForPatient">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches a list of BL_PatientSummary objects, given a Practice ID and other filters.</wsdl:documentation>
+      <wsdl:input message="tns:SearchPracticeForPatientSoapIn" />
+      <wsdl:output message="tns:SearchPracticeForPatientSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientSummaryGetByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches a list of BL_PatientSummary objects, given a Practice ID and Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientSummaryGetByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientSummaryGetByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientBasic object for the corresponding Practice ID and Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientBasicGetByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientBasicGetByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsertBasic">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserts a Patient's basic attributes.</wsdl:documentation>
+      <wsdl:input message="tns:PatientInsertBasicSoapIn" />
+      <wsdl:output message="tns:PatientInsertBasicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateBasic">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates a Patient's basic attributes.</wsdl:documentation>
+      <wsdl:input message="tns:PatientUpdateBasicSoapIn" />
+      <wsdl:output message="tns:PatientUpdateBasicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAddressGetByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientAddress object for the corresponding Practice ID and Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAddressGetByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientAddressGetByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateAddress">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates a Patient's address attributes.</wsdl:documentation>
+      <wsdl:input message="tns:PatientUpdateAddressSoapIn" />
+      <wsdl:output message="tns:PatientUpdateAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientScheduleGetByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientScheduleSummary array object for the corresponding Practice ID and Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientScheduleGetByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientScheduleGetByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientDeleteAllFakePatients">
+      <wsdl:input message="tns:PatientDeleteAllFakePatientsSoapIn" />
+      <wsdl:output message="tns:PatientDeleteAllFakePatientsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRaces">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the list of Races</wsdl:documentation>
+      <wsdl:input message="tns:GetRacesSoapIn" />
+      <wsdl:output message="tns:GetRacesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEthnicities">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the list of Ethnicities</wsdl:documentation>
+      <wsdl:input message="tns:GetEthnicitiesSoapIn" />
+      <wsdl:output message="tns:GetEthnicitiesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPreferredMethodsOfCommunication">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the list of Preferred Methods of Communication</wsdl:documentation>
+      <wsdl:input message="tns:GetPreferredMethodsOfCommunicationSoapIn" />
+      <wsdl:output message="tns:GetPreferredMethodsOfCommunicationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLanguages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the list of all Languages</wsdl:documentation>
+      <wsdl:input message="tns:GetAllLanguagesSoapIn" />
+      <wsdl:output message="tns:GetAllLanguagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMostCommonLanguages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets the list of the most common Languages</wsdl:documentation>
+      <wsdl:input message="tns:GetMostCommonLanguagesSoapIn" />
+      <wsdl:output message="tns:GetMostCommonLanguagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanSummaryGetAllByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientInsurancePlanSummary array object for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientInsurancePlanSummaryGetAllByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientInsurancePlanSummaryGetAllByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanBasicGetByPatientInsurancePlanID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientInsurancePlanBasic object for the corresponding Practice ID and Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientInsurancePlanBasicGetByPatientInsurancePlanIDSoapIn" />
+      <wsdl:output message="tns:PatientInsurancePlanBasicGetByPatientInsurancePlanIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanInsert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserts a Patient's Insurance Plan.</wsdl:documentation>
+      <wsdl:input message="tns:PatientInsurancePlanInsertSoapIn" />
+      <wsdl:output message="tns:PatientInsurancePlanInsertSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanUpdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates a Patient's Insurance Plan.</wsdl:documentation>
+      <wsdl:input message="tns:PatientInsurancePlanUpdateSoapIn" />
+      <wsdl:output message="tns:PatientInsurancePlanUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusGet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the bool value for Patient's current appointment reminder setting.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAppointmentReminderStatusGetSoapIn" />
+      <wsdl:output message="tns:PatientAppointmentReminderStatusGetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusSet">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the bool value for Patient's current appointment reminder setting.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAppointmentReminderStatusSetSoapIn" />
+      <wsdl:output message="tns:PatientAppointmentReminderStatusSetSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHRetrieve">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the Patient's current PMH values.</wsdl:documentation>
+      <wsdl:input message="tns:PatientPMHRetrieveSoapIn" />
+      <wsdl:output message="tns:PatientPMHRetrieveSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHUpdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets the Patient's PMH value.</wsdl:documentation>
+      <wsdl:input message="tns:PatientPMHUpdateSoapIn" />
+      <wsdl:output message="tns:PatientPMHUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetAllByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientAdvancedDirective array object for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAdvancedDirectiveGetAllByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientAdvancedDirectiveGetAllByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientAdvancedDirective object for the corresponding Advanced Directive ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDSoapIn" />
+      <wsdl:output message="tns:PatientAdvancedDirectiveGetByPatientAdvancedDirectiveIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveInsert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserts a Patient Advanced Directive.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAdvancedDirectiveInsertSoapIn" />
+      <wsdl:output message="tns:PatientAdvancedDirectiveInsertSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveUpdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates a Patient Advanced Directive.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAdvancedDirectiveUpdateSoapIn" />
+      <wsdl:output message="tns:PatientAdvancedDirectiveUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveDelete">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes a Patient Advanced Directive.</wsdl:documentation>
+      <wsdl:input message="tns:PatientAdvancedDirectiveDeleteSoapIn" />
+      <wsdl:output message="tns:PatientAdvancedDirectiveDeleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetAllByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientImmunization array object for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientImmunizationGetAllByPatientIDSoapIn" />
+      <wsdl:output message="tns:PatientImmunizationGetAllByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetByPatientImmunizationID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_PatientImmunization object for the corresponding Immunization ID.</wsdl:documentation>
+      <wsdl:input message="tns:PatientImmunizationGetByPatientImmunizationIDSoapIn" />
+      <wsdl:output message="tns:PatientImmunizationGetByPatientImmunizationIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationInsert">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Inserts a Patient Immunization.</wsdl:documentation>
+      <wsdl:input message="tns:PatientImmunizationInsertSoapIn" />
+      <wsdl:output message="tns:PatientImmunizationInsertSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationUpdate">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates a Patient Immunization.</wsdl:documentation>
+      <wsdl:input message="tns:PatientImmunizationUpdateSoapIn" />
+      <wsdl:output message="tns:PatientImmunizationUpdateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationDelete">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Deletes a Patient Immunization.</wsdl:documentation>
+      <wsdl:input message="tns:PatientImmunizationDeleteSoapIn" />
+      <wsdl:output message="tns:PatientImmunizationDeleteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateNoKnownStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sets a patient's No Known status</wsdl:documentation>
+      <wsdl:input message="tns:PatientUpdateNoKnownStatusSoapIn" />
+      <wsdl:output message="tns:PatientUpdateNoKnownStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ChartAccessGetByPatientID">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches the BL_ChartAccess array object for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:ChartAccessGetByPatientIDSoapIn" />
+      <wsdl:output message="tns:ChartAccessGetByPatientIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetSmokingStatuses">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return list of all smoking statuses.</wsdl:documentation>
+      <wsdl:input message="tns:GetSmokingStatusesSoapIn" />
+      <wsdl:output message="tns:GetSmokingStatusesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientSmokingHistory">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return smoking history for patient.</wsdl:documentation>
+      <wsdl:input message="tns:GetPatientSmokingHistorySoapIn" />
+      <wsdl:output message="tns:GetPatientSmokingHistorySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SavePatientSmokingStatus">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Return list of all smoking statuses.</wsdl:documentation>
+      <wsdl:input message="tns:SavePatientSmokingStatusSoapIn" />
+      <wsdl:output message="tns:SavePatientSmokingStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetBySearchCriteria">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Gets Patient's Formulary &amp; Benefits Information</wsdl:documentation>
+      <wsdl:input message="tns:PatientBasicGetBySearchCriteriaSoapIn" />
+      <wsdl:output message="tns:PatientBasicGetBySearchCriteriaSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientImmunizationRegistry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches PatientImmunizationRegistry HL7 string for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:GetPatientImmunizationRegistrySoapIn" />
+      <wsdl:output message="tns:GetPatientImmunizationRegistrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientHealthSurveillance">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Fetches PatientImmunizationRegistry HL7 string for the corresponding Patient ID.</wsdl:documentation>
+      <wsdl:input message="tns:GetPatientHealthSurveillanceSoapIn" />
+      <wsdl:output message="tns:GetPatientHealthSurveillanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientListExported">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates database to indicate that a patient list was exported.</wsdl:documentation>
+      <wsdl:input message="tns:PatientListExportedSoapIn" />
+      <wsdl:output message="tns:PatientListExportedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PatientEducationActionPerformed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Updates database to indicate that a patient education action was performed.</wsdl:documentation>
+      <wsdl:input message="tns:PatientEducationActionPerformedSoapIn" />
+      <wsdl:output message="tns:PatientEducationActionPerformedSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PatientHttpGet" />
+  <wsdl:portType name="PatientHttpPost" />
+  <wsdl:binding name="PatientSoap" type="tns:PatientSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PatientGetByID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientGetByID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPracticeForPatient">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SearchPracticeForPatient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientSummaryGetByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientSummaryGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientBasicGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsertBasic">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsertBasic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateBasic">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateBasic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAddressGetByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAddressGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateAddress">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientScheduleGetByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientScheduleGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientDeleteAllFakePatients">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientDeleteAllFakePatients" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRaces">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetRaces" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEthnicities">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetEthnicities" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPreferredMethodsOfCommunication">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPreferredMethodsOfCommunication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLanguages">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetAllLanguages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMostCommonLanguages">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetMostCommonLanguages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanSummaryGetAllByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanSummaryGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanBasicGetByPatientInsurancePlanID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanBasicGetByPatientInsurancePlanID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanInsert">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanInsert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanUpdate">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusGet">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAppointmentReminderStatusGet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusSet">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAppointmentReminderStatusSet" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHRetrieve">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientPMHRetrieve" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHUpdate">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientPMHUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetAllByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveInsert">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveInsert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveUpdate">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveDelete">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetAllByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetByPatientImmunizationID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationGetByPatientImmunizationID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationInsert">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationInsert" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationUpdate">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationUpdate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationDelete">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationDelete" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateNoKnownStatus">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateNoKnownStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChartAccessGetByPatientID">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ChartAccessGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmokingStatuses">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetSmokingStatuses" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientSmokingHistory">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientSmokingHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePatientSmokingStatus">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SavePatientSmokingStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetBySearchCriteria">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientBasicGetBySearchCriteria" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientImmunizationRegistry">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientImmunizationRegistry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientHealthSurveillance">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientHealthSurveillance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientListExported">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientListExported" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientEducationActionPerformed">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientEducationActionPerformed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PatientSoap12" type="tns:PatientSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PatientGetByID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientGetByID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchPracticeForPatient">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SearchPracticeForPatient" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientSummaryGetByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientSummaryGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientBasicGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsertBasic">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsertBasic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateBasic">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateBasic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAddressGetByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAddressGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateAddress">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientScheduleGetByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientScheduleGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientDeleteAllFakePatients">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientDeleteAllFakePatients" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRaces">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetRaces" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEthnicities">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetEthnicities" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPreferredMethodsOfCommunication">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPreferredMethodsOfCommunication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllLanguages">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetAllLanguages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMostCommonLanguages">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetMostCommonLanguages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanSummaryGetAllByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanSummaryGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanBasicGetByPatientInsurancePlanID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanBasicGetByPatientInsurancePlanID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanInsert">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientInsurancePlanUpdate">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientInsurancePlanUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusGet">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAppointmentReminderStatusGet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAppointmentReminderStatusSet">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAppointmentReminderStatusSet" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHRetrieve">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientPMHRetrieve" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientPMHUpdate">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientPMHUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetAllByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveGetByPatientAdvancedDirectiveID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveInsert">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveUpdate">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientAdvancedDirectiveDelete">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientAdvancedDirectiveDelete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetAllByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationGetAllByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationGetByPatientImmunizationID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationGetByPatientImmunizationID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationInsert">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationInsert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationUpdate">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationUpdate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientImmunizationDelete">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientImmunizationDelete" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientUpdateNoKnownStatus">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientUpdateNoKnownStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChartAccessGetByPatientID">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ChartAccessGetByPatientID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSmokingStatuses">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetSmokingStatuses" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientSmokingHistory">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientSmokingHistory" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SavePatientSmokingStatus">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SavePatientSmokingStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientBasicGetBySearchCriteria">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientBasicGetBySearchCriteria" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientImmunizationRegistry">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientImmunizationRegistry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPatientHealthSurveillance">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPatientHealthSurveillance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientListExported">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientListExported" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PatientEducationActionPerformed">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PatientEducationActionPerformed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PatientHttpGet" type="tns:PatientHttpGet">
+    <http:binding verb="GET" />
+  </wsdl:binding>
+  <wsdl:binding name="PatientHttpPost" type="tns:PatientHttpPost">
+    <http:binding verb="POST" />
+  </wsdl:binding>
+  <wsdl:service name="Patient">
+    <wsdl:port name="PatientSoap" binding="tns:PatientSoap">
+      <soap:address location="https://pfws.practicefusion.com/emr/2.0.45.1/Patient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PatientSoap12" binding="tns:PatientSoap12">
+      <soap12:address location="https://pfws.practicefusion.com/emr/2.0.45.1/Patient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PatientHttpGet" binding="tns:PatientHttpGet">
+      <http:address location="https://pfws.practicefusion.com/emr/2.0.45.1/Patient.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PatientHttpPost" binding="tns:PatientHttpPost">
+      <http:address location="https://pfws.practicefusion.com/emr/2.0.45.1/Patient.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

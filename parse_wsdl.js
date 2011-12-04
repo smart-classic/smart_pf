@@ -86,7 +86,7 @@ fs.readFile(infile, function(err, data) {
 
 
 /*
-	var b = new WB(wsdl, {
+	var b = new WSDL_Interface(wsdl, {
 	    i_lProviderID: 123,
 	    strToken: "ha",
 	    dtUTCExpiryDate: "ha",
@@ -102,9 +102,7 @@ fs.readFile(infile, function(err, data) {
 	console.log("var PF = (PF || {});");
 	console.log("PF." + libname+" = (PF." + libname+" || {});");
 	console.log("PF." + libname+".wsdl = "+JSON.stringify(wsdl, null, 2));
-	console.log("WB.add_service(PF."+libname+");");
-
-
+	console.log("WSDL_Interface.add(PF."+libname+");");
 
     });
 });

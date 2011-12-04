@@ -3,16 +3,24 @@
 <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
 <script src="pf_wsdl.js"></script>
 <script src="Chart.js"></script>
+<script src="Patient.js"></script>
+
+</head>
+
+<body>
+
+See JS console for output...
+  
+</body>
 <script>
 
-PF.Chart.interface.defaults =  {
+PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
   'strToken':"ee00b42eea414711ae77cf528a5d0e6ac7deaccf82fc4c7091f37f516957c2fc",
   'dtUTCExpiryDate':"2011-12-11T00:51:06.389Z",
   'lWSCallSequenceNumber':1,
   'lUserID':109760,
   'i_lPatientID': 11426216,
   'i_lPracticeID': 68595,
-
 };
 
 PF.Chart.call(
@@ -42,17 +50,18 @@ PF.Chart.call(
         if (v.iDiastolicBloodPressure == -1) return;
 
         console.log(v.dtDateOfService  + ": " + 
-                    v.iSystolicBloodPressure + 
-                    " / " + 
-                    v.iDiastolicBloodPressure); 
+                    v.iSystolicBloodPressure + "/" + v.iDiastolicBloodPressure); 
       });
    }
 );
 
+PF.Patient.call('PatientBasicGetByPatientID').done(
+  function(pat_response) {
+    console.log(pat_response);
+    console.log("Born on: " + pat_response.o_PatientBasic.dtDateOfBirth);
+  });
 
 
 </script>
-</head>
 
-Hi
 </html>

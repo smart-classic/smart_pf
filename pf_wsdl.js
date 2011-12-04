@@ -1,4 +1,4 @@
-var WB = function(wsdl, defaults) {
+var WSDL_Interface = function(wsdl, defaults) {
     this.wsdl = wsdl;
     this.defaults = defaults || {};
 };
@@ -9,7 +9,7 @@ striptns = function(t) {
     return t;
 };
 
-WB.prototype.serialize_type  = function(type, json_values, path_here) {
+WSDL_Interface.prototype.serialize_type  = function(type, json_values, path_here) {
     //    console.log("Genser");
     if (type.constructor === String) {
 	type = striptns(type);
@@ -19,7 +19,6 @@ WB.prototype.serialize_type  = function(type, json_values, path_here) {
     if (type.constructor === Array) 
 	type = type[0];
 
-    //    //console.log(JSON.stringify(type));
     if ( type['s:element'] ) {
 	var e = type['s:element'][0];
 	var n = e['@'].name;
@@ -38,7 +37,6 @@ WB.prototype.serialize_type  = function(type, json_values, path_here) {
 	}
 
 	return this.xinset(n,v, path_here.length);
-
     }
 
     else if ( type['s:simpleType'] ) {
@@ -50,7 +48,7 @@ WB.prototype.serialize_type  = function(type, json_values, path_here) {
 
 };
 
-WB.prototype.serialize_simple_type = function(type, json_values, path_here) {
+WSDL_Interface.prototype.serialize_simple_type = function(type, json_values, path_here) {
     var v = json_values;
     //    //console.log("simple for "+JSON.stringify(type) + ": "  + path_here);
     if (v=== undefined ) {
@@ -66,7 +64,7 @@ WB.prototype.serialize_simple_type = function(type, json_values, path_here) {
     return json_values;
 };
 
-WB.prototype.serialize_complex_type = function(type, json_values, path_here) {
+WSDL_Interface.prototype.serialize_complex_type = function(type, json_values, path_here) {
     var ret = [];
     var _wb = this;
 
@@ -95,7 +93,7 @@ WB.prototype.serialize_complex_type = function(type, json_values, path_here) {
     return ret.join('');
 };
 
-WB.prototype.xinset = function(n, v, d) {
+WSDL_Interface.prototype.xinset = function(n, v, d) {
     v = v.toString();
 
     var indent = '';
@@ -110,7 +108,7 @@ WB.prototype.xinset = function(n, v, d) {
 	    '</'+n+'>\n');
 };
 
-WB.prototype.call = function(call, json_values) {
+WSDL_Interface.prototype.call = function(call, json_values) {
     var o = this.wsdl.operations[call];
     var body = this.serialize_type(o.intype, json_values);
     var _wb = this;
@@ -153,7 +151,7 @@ WB.prototype.call = function(call, json_values) {
     //console.log(payload);
 }
 
-WB.prototype.parse_type  = function(type, xmldoc, path_here) {
+WSDL_Interface.prototype.parse_type  = function(type, xmldoc, path_here) {
 
     var ret;
     var in_type = type;
@@ -181,27 +179,23 @@ WB.prototype.parse_type  = function(type, xmldoc, path_here) {
 
 	if ( e['@']['type'] ) {
 	    ret = this.parse_type(this.wsdl.types[e['@']['type']], xmldoc, path_here);
-	}
-	else if ( e['s:simpleType'] ) {
-	    ret = this.parse_simple_type(e['s:simpleType'][0], xmldoc, path_here);
-	}
-	else if ( e['s:complexType'] ) {
-	    ret = this.parse_complex_type(e['s:complexType'][0], xmldoc, path_here);
+	    return ret;
 	}
 
-	return ret;
+	type = e;
     }
 
-    else if ( type['s:simpleType'] ) {
+    if ( type['s:simpleType'] ) {
 	return this.parse_simple_type(type['s:simpleType'][0], xmldoc, path_here);
     }
+
     else if ( type['s:complexType'] ) {
 	return this.parse_complex_type(type['s:complexType'][0], xmldoc, path_here);
     }
 
 };
 
-WB.prototype.parse_simple_type = function(type, xmldoc, path_here) {
+WSDL_Interface.prototype.parse_simple_type = function(type, xmldoc, path_here) {
     var v = xmldoc;
     var ret  = xmldoc.textContent;
 
@@ -229,7 +223,7 @@ WB.prototype.parse_simple_type = function(type, xmldoc, path_here) {
     throw "Unknownw simple type " + type['@'].name;
 };
 
-WB.prototype.parse_complex_type = function(type, xmldoc, path_here) {
+WSDL_Interface.prototype.parse_complex_type = function(type, xmldoc, path_here) {
 
     var ret = {};
     var _wb = this;
@@ -284,8 +278,8 @@ WB.prototype.parse_complex_type = function(type, xmldoc, path_here) {
 };
 
 
-WB.add_service = function(s) {
-    var t = new WB(s.wsdl);
+WSDL_Interface.add = function(s) {
+    var t = new WSDL_Interface(s.wsdl);
     s.interface = t;
     s.receive = function() {return t.parse_type.apply(t, arguments);}
     s.call = function() {return t.call.apply(t, arguments);}
