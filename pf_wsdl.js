@@ -82,8 +82,10 @@ WB.prototype.serialize_complex_type = function(type, json_values, path_here) {
 	    ret.push(_wb.xinset(n,v, path_here.length));
 	} catch(err) {
 	    //console.log("failed on " + path_here.join("->") + " " + n + err);
-	    if (e['@'].minOccurs !== '0' || err.toString() !== "simple_type_undefined")
+	    if (e['@'].minOccurs !== '0' || err.toString() !== "simple_type_undefined") {
+		console.log(e);
 		throw err
+	    }
 	} finally {
 	    path_here.pop(n);
 	}
@@ -154,7 +156,7 @@ WB.prototype.call = function(call, json_values) {
 WB.prototype.parse_type  = function(type, xmldoc, path_here) {
 
     var ret;
-
+    var in_type = type;
     //    //console.log("genser");
     if (type.constructor === String) {
 	type = striptns(type);
@@ -204,6 +206,9 @@ WB.prototype.parse_simple_type = function(type, xmldoc, path_here) {
     var ret  = xmldoc.textContent;
 
     if (type['@'].name == 's:long')
+	return parseFloat(ret);
+
+    if (type['@'].name == 's:float')
 	return parseFloat(ret);
 
     if (type['@'].name == 's:int')

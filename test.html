@@ -9,14 +9,15 @@ PF.Chart.interface.defaults =  {
   'strToken':"ee00b42eea414711ae77cf528a5d0e6ac7deaccf82fc4c7091f37f516957c2fc",
   'dtUTCExpiryDate':"2011-12-11T00:51:06.389Z",
   'lWSCallSequenceNumber':1,
-  'lUserID':109760
+  'lUserID':109760,
+  'i_lPatientID': 11426216,
+  'i_lPracticeID': 68595,
+
 };
 
 PF.Chart.call(
-  'GetPatientMedications', {  
-      'i_lPatientID': 11426216,
-      'i_lPracticeID': 68595,
-      'i_bIncludePrescriptions': true}).done(
+  'GetPatientMedications', { 
+     'i_bIncludePrescriptions': true}).done(
     
    function(med_response) {
       console.log(med_response);
@@ -26,6 +27,29 @@ PF.Chart.call(
       });
    }
 );
+
+
+PF.Chart.call(
+  'GetStandardVitalsByPatient', {  
+      'i_bReturnAll': true,
+      'i_lStartRowIndex': 0}).done(
+    
+   function(vitals_response) {
+      console.log(vitals_response);
+      var vits = vitals_response.o_arrVitals.BL_VitalsStandard;
+      vits.forEach(function(v) {
+
+        if (v.iDiastolicBloodPressure == -1) return;
+
+        console.log(v.dtDateOfService  + ": " + 
+                    v.iSystolicBloodPressure + 
+                    " / " + 
+                    v.iDiastolicBloodPressure); 
+      });
+   }
+);
+
+
 
 </script>
 </head>

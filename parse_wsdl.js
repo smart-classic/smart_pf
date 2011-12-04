@@ -28,6 +28,7 @@ fs.readFile(infile, function(err, data) {
 	addTypes('s:simpleType', r['wsdl:types'][0]['s:schema'][0]['s:simpleType']);
 	addTypes('s:simpleType', [
 	    {'@':{name: 's:string'}},
+	    {'@':{name: 's:float'}},
 	    {'@':{name: 's:dateTime'}},
 	    {'@':{name: 's:boolean'}},
 	    {'@':{name: 's:long'}},
