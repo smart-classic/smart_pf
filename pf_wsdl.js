@@ -10,7 +10,6 @@ striptns = function(t) {
 };
 
 WSDL_Interface.prototype.serialize_type  = function(type, json_values, path_here) {
-    //    console.log("Genser");
     if (type.constructor === String) {
 	type = striptns(type);
 
@@ -50,7 +49,6 @@ WSDL_Interface.prototype.serialize_type  = function(type, json_values, path_here
 
 WSDL_Interface.prototype.serialize_simple_type = function(type, json_values, path_here) {
     var v = json_values;
-    //    //console.log("simple for "+JSON.stringify(type) + ": "  + path_here);
     if (v=== undefined ) {
 	var d = this.defaults[path_here[path_here.length - 1]];
 	if (d === undefined) {
@@ -209,7 +207,6 @@ WSDL_Interface.prototype.parse_simple_type = function(type, xmldoc, path_here) {
 	return parseInt(ret);
 
     if (type['@'].name == 's:dateTime') {
-	//console.log("trypgindate " + ret);
 	return new Date(ret);
 
     }
@@ -220,7 +217,7 @@ WSDL_Interface.prototype.parse_simple_type = function(type, xmldoc, path_here) {
     if (type['@'].name == 's:string')
 	return ret;
 
-    throw "Unknownw simple type " + type['@'].name;
+    throw "Unknown simple type " + type['@'].name;
 };
 
 WSDL_Interface.prototype.parse_complex_type = function(type, xmldoc, path_here) {
@@ -231,9 +228,6 @@ WSDL_Interface.prototype.parse_complex_type = function(type, xmldoc, path_here) 
     var nodes = {};
     for (var i = 0; i < xmldoc.childNodes.length; i++) {
 	var n = xmldoc.childNodes[i];
-	//console.log(xmldoc);
-	//console.log(n);
-	//console.log(i +  " of " + xmldoc.childNodes.length);
 	if (nodes[n.nodeName] === undefined)
 	    nodes[n.nodeName] = [];
 	nodes[n.nodeName].push(n);
