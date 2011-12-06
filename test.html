@@ -4,24 +4,273 @@
 <script src="pf_wsdl.js"></script>
 <script src="Chart.js"></script>
 <script src="Patient.js"></script>
+<style>
+  body {margin: 0px; font-family: sans-serif;}
 
+  #chart_holder {
+  box-sizing: border-box; 
+  width: 100%;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-right: 400px;
+  padding-bottom: 20px;
+  }
+
+  #chart {
+  max-width: 100%;
+  max-height: 100%;
+  }
+
+  #next {background: yellow; padding: 1em;}
+  .toSubmit {background: grey; padding-left: 1em; padding-right: 1em;}
+  .submitted {background: white; padding-left: 1em; padding-right: 1em;}
+
+  input {width: 80px; font-weight: bold; text-align: center; padding: .5em; border: 1px solid black; margin-right: 1em;}
+  button {font-weight: bold; text-align: center; padding: .5em; border: 1px solid black; }
+
+ .active {border: 4px solid black; zoom: 1.4; -moz-transform: scale(1.4);}
+ #entries {float: right}
+
+ #status {position: fixed; bottom: 0px; padding-right: 1em;}
+ .label {position: relative; left: -.8em;}
+
+  #weightrule {width: 30px; height: 1px; background: black; position: absolute; left: 0px; 
+  border-top: 4px solid rgba(0, 255, 0, 0.9);
+  border-bottom: 4px solid rgba(0, 255, 0, 0.9);
+  display: none;
+ }
+
+  #heightrule {width: 30px; height: 1px; background: black; position: absolute; left: 0px; 
+  border-top: 4px solid rgba(0, 0, 255, 0.9);
+  border-bottom: 4px solid rgba(0,0, 255, 0.9);
+  display: none;
+ }
+
+  #daterule {bottom: 0px; width: 1px; height: 30px; background: black; position: absolute;
+  border-left: 4px solid rgba(255, 0, 0, 0.9);
+  border-right: 4px solid rgba(255, 0, 0, 0.9);
+  display: none;
+}
+  .heightdot {position: absolute; background: rgba(0, 0, 255, 0.6); width: 15px; height: 15px;}
+  .weightdot {position: absolute; background: rgba(0, 255, 0, 0.6);; width: 15px; height: 15px;}
+
+.weightdot, .heightdot {
+  border-radius: 15px 15px;
+  -moz-border-radius: 15px;
+  -khtml-border-radius: 15px;
+  }
+
+</style>
 </head>
 
 <body>
+  <div id='status'></div>
 
-See JS console for output...
-  
+
+<div id='entries'>
+  <div id='next'>
+    <input type='text' class='vDate' id='vDate' class='active'/> 
+    <input type='text' class='vWeight' id='vWeight' /> <span class='label'>lbs</span>
+    <input type='text' class='vHeight' id='vHeight' /> <span class='label'>in</span>
+  </div>
+  <button id='addToPF'>Add Historical Vitals to PF Record</button>
+</div>
+
+<div id='chart_holder'>
+  <img id="chart" src="boys_growth_2_20.png" />
+<div class='rule' id='weightrule'></div>
+<div class='rule' id='heightrule'></div>
+<div class='rule' id='daterule'></div>
+
+</div>
+
 </body>
 <script>
 
-PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
-  'strToken':"ee00b42eea414711ae77cf528a5d0e6ac7deaccf82fc4c7091f37f516957c2fc",
-  'dtUTCExpiryDate':"2011-12-11T00:51:06.389Z",
-  'lWSCallSequenceNumber':1,
-  'lUserID':109760,
-  'i_lPatientID': 11426216,
-  'i_lPracticeID': 68595,
+var mode = 'date';
+var count = 0;
+
+var dateinterp = [
+  [.1425, 2],
+  [.8626, 20]
+];
+
+
+var weightinterp = [
+  [.9373, 30],
+  [.4177, 230]
+];
+
+var heightinterp = [
+  [.7528, 32],
+  [.3177, 62]
+];
+
+var interp = function(value, key) {
+  return key[0][1] + (key[1][1] - key[0][1]) * (value - key[0][0]) / (key[1][0] - key[0][0]);
+}
+
+var dateForAge = function(age) {
+  return new Date(birthday.getTime() + 31536000000 * age);
 };
+
+jQuery(document).ready(function(){
+   $('#chart').mousemove(function(e){
+      var x = 1.0 * (e.pageX - $("#chart").position().left) / $("#chart").width();
+      var y = 1.0 * (e.pageY - $("#chart").position().top) / $("#chart").height();
+      
+      $('#status').html(x +'%, '+ y+'%: ' + formatDate(dateForAge(interp(x, dateinterp)))  + " vs. " + interp(y, weightinterp));
+
+      if (mode == 'date') {
+        $('#vDate').val(formatDate(dateForAge(interp(x, dateinterp))));
+        $('#vWeight').val(Math.round(interp(y, weightinterp)));
+      }
+      else if (mode == 'height') {
+        $('#vHeight').val(Math.round(interp(y, heightinterp)));
+      }
+
+      if (mode == 'date') {
+        $("#daterule").show().css({left: e.pageX, bottom: $("#chart_holder").height() - $("#chart").height() - 10});
+        $("#daterule").show().css('background', 'red');
+        $("#weightrule").show().css('top', e.pageY);
+        $("#heightrule").hide();
+     }
+      if (mode == 'height') {
+        $("#heightrule").show().css('top', e.pageY);
+      }
+   }); 
+
+   $('#chart').mouseenter(function(e){  
+        $("#daterule").show();
+      $("#next").show();
+   });
+
+
+   $('#chart').mouseout(function(e){  
+      $("#next").hide();
+      $(".rule").hide();
+   });
+
+   $('#chart').click(function(e){ 
+
+     $("#next input").removeClass('active'); 
+
+      if (mode == 'date') {
+        mode = 'height';
+        $("#next #vHeight").addClass('active');
+        console.log("hdot");
+        console.log($("#weightrule").offset());
+        console.log($("#daterule").offset());
+        $("body").append($("<div class='weightdot'></div>").css({
+           left:  $("#daterule").offset().left,
+           top:  $("#weightrule").offset().top
+        }));
+      }
+
+      else if (mode == 'height') {
+        $('#addToPF').before($("#next").clone().attr("id", "").addClass("toSubmit"));
+        mode = 'date';
+        $("#next #vDate").addClass('active');
+
+        $("body").append($("<div class='heightdot'></div>").css({
+           left:  $("#daterule").offset().left,
+           top:  $("#heightrule").offset().top
+        }));
+      }
+    });
+})
+
+PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
+  'strToken':"cd8a0f4b1266438c955e5fc89424ea0f5e45c084af3b415f88538576f1d4fd9a",
+  'dtUTCExpiryDate':"9999",
+  'lWSCallSequenceNumber':0,
+  'lUserID':220707,
+  'lPatientID': 29524145,
+  'i_lPatientID': 29524145,
+  'i_lProviderID': 220765,
+  'i_lPracticeID': 120667,
+};
+
+var formatDate = function(d)  {
+  var curr_date = d.getDate();
+  var curr_month = d.getMonth() + 1; //months are zero based
+  var curr_year = d.getFullYear();
+  return(curr_month + "/" + curr_date + "/" + curr_year);
+}
+
+PF.Patient.call('PatientBasicGetByPatientID').done(
+  function(pat_response) {
+    console.log(pat_response);
+    console.log("Born on: " + pat_response.o_PatientBasic.dtDateOfBirth);
+    birthday = pat_response.o_PatientBasic.dtDateOfBirth;
+  });
+
+$("#addToPF").click(function(){
+  $(".toSubmit").each(function(){
+
+    var submitting = $(this);
+    var d = $(".vDate", this).val();
+    var w = parseInt($(".vWeight", this).val());
+    var h = parseInt($(".vHeight", this).val());
+
+    addVitals({height: h, weight: w, date: new Date(d)}).done(function(){
+       submitting.removeClass("toSubmit");
+       submitting.addClass("submitted");
+    });
+    console.log(w+d+h);
+  });
+
+});
+
+
+function addVitals(vitals) {
+
+var ret = new $.Deferred();
+
+PF.Chart.call(
+  'StartNewChart', {  
+      'i_dtDateOfService': vitals.date,
+      'i_iChartTypeID': 5}).done(
+
+   function(chart_response) {
+      console.log(chart_response);
+      console.log(chart_response.o_Chart.lID);
+
+      var chart = chart_response.o_Chart;
+      PF.Chart.call(
+        'UpdateChartVitalsAndChiefComplaint', {  
+        'i_lChartID': chart.lID,
+        'io_Vitals': {
+           'lChartID': chart.lID,
+           'dtDateOfService': vitals.date,
+           'fHeight': vitals.height,
+           'fWeight': vitals.weight,
+            iSystolicBloodPressure:-1,
+            iDiastolicBloodPressure:-1,
+            fPulse:-1,
+            fTemperature:-1,
+            fRespiratoryRate:-1,
+            fHeadCircumference:-1,
+            lProviderSeenByID:-1,
+            fBMI:-1,
+            fBMIPercentile:-1
+         }}).done(  
+            function(vitals_updated) {
+              console.log(vitals_updated);
+              ret.resolve();
+            }
+  );
+   }
+);
+
+  return ret;
+}
+
+
+/*
+
+ 
 
 PF.Chart.call(
   'GetPatientMedications', { 
@@ -55,13 +304,8 @@ PF.Chart.call(
    }
 );
 
-PF.Patient.call('PatientBasicGetByPatientID').done(
-  function(pat_response) {
-    console.log(pat_response);
-    console.log("Born on: " + pat_response.o_PatientBasic.dtDateOfBirth);
-  });
 
-
+*/
 </script>
 
 </html>

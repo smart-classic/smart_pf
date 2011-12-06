@@ -59,6 +59,9 @@ WSDL_Interface.prototype.serialize_simple_type = function(type, json_values, pat
     }
     
     // todo check enumeration restrictions here too
+    console.log(type);
+    if (type['@']['name']==='s:dateTime' && json_values.constructor ===  Date)
+	return json_values.toISOString();
     return json_values;
 };
 
