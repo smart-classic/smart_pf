@@ -32,6 +32,7 @@ fs.readFile(infile, function(err, data) {
 	    {'@':{name: 's:dateTime'}},
 	    {'@':{name: 's:boolean'}},
 	    {'@':{name: 's:long'}},
+	    {'@':{name: 's:double'}},
 	    {'@':{name: 's:int'}}
 	]);
 	addTypes('s:complexType', r['wsdl:types'][0]['s:schema'][0]['s:complexType']);
@@ -100,11 +101,16 @@ fs.readFile(infile, function(err, data) {
 	    i_eTemplateFieldToSearch: "O"
 	});
 */
-	console.log("var PF = (PF || {});");
-	console.log("PF." + libname+" = (PF." + libname+" || {});");
-	console.log("PF." + libname+".wsdl = "+JSON.stringify(wsdl, null, 2));
-	console.log("WSDL_Interface.add(PF."+libname+");");
 
+
+	console.log('(function() {');
+	console.log('if (typeof exports !== "undefined") {');
+	console.log('    WSDL_Interface = require("pf_wsdl").WSDL_Interface;');
+	console.log('}');
+	console.log('var '+libname+' = {};');
+	console.log(libname+'.wsdl = '+JSON.stringify(wsdl, null, 2));
+	console.log('WSDL_Interface.add("'+libname+'", '+libname+');');
+	console.log('}());');
     });
 });
 
