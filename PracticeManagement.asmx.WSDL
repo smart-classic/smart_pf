@@ -1,0 +1,1677 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://PracticeFusion.com/BusinessLogic/WebServices" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://PracticeFusion.com/BusinessLogic/WebServices" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://PracticeFusion.com/BusinessLogic/WebServices">
+      <s:element name="GetAnnouncements">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_dtTargetDate" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_Session">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCExpiryDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="lWSCallSequenceNumber" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserID" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAnnouncementsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAnnouncementsResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAnnouncements" type="tns:ArrayOfBL_Announcement" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WebServiceResponse">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="tns:BL_Status" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAssemblyVersions" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCRequest" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCResponse" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="lExecutionTime" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Status">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="nErrorNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDisplayMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInternalMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="nSeverity" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMessageType" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Announcement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Announcement" nillable="true" type="tns:BL_Announcement" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Announcement">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnnouncementTypeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="EffectiveStartTime" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="EffectiveEndTime" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetPublicAnnouncements">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPublicAnnouncementsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPublicAnnouncementsResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAnnouncements" type="tns:ArrayOfBL_Announcement" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogAnnouncement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lAnnouncementID" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="LogAnnouncementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LogAnnouncementResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetWebServiceInformation">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetWebServiceInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetWebServiceInformationResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strAssemblyVersions" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strInformation" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Ping">
+        <s:complexType />
+      </s:element>
+      <s:element name="PingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PingResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserSecurityQuestion">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPracticeIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strUserName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserSecurityQuestionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserSecurityQuestionResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_lQuestionID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strQuestion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateSecurityQuestionAndAnswer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="i_iSource" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPracticeIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strUserName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lQuestionID" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strAnswer" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateSecurityQuestionAndAnswerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateSecurityQuestionAndAnswerResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_iResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SunriseSignup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_lFacility" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_SunriseDetails" type="tns:BL_SunriseDetails" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_SunriseDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strSunriseAccountNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SunriseSignupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SunriseSignupResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PreLogin">
+        <s:complexType />
+      </s:element>
+      <s:element name="PreLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PreLoginResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strAssemblyVersions" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strInformation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_Specialties" type="tns:ArrayOfBL_Specialization" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAnnouncements" type="tns:ArrayOfBL_Announcement" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bNewUserSignupsEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_Specialization">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Specialization" nillable="true" type="tns:BL_Specialization" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Specialization">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strClassification" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSpecialization" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UserLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPracticeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strClientVersion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLoginResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_UserProfile" type="tns:BL_UserProfile" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_lUserCRMRole" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_LabProfile" type="tns:BL_LabProfile" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAnnouncements" type="tns:ArrayOfBL_Announcement" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPracticePermission" type="tns:ArrayOfBL_User_Permission" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrUserPermission" type="tns:ArrayOfBL_Permission" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAd" type="tns:ArrayOfBL_Advertisement" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bIs100ChartPulls" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strExternalUserGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_UserProfile">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="User" type="tns:BL_User" />
+          <s:element minOccurs="0" maxOccurs="1" name="Practice" type="tns:BL_Practice" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrScheduledEventTypes" type="tns:ArrayOfBL_ScheduledEventType" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrOptions" type="tns:ArrayOfBL_Option" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPlaceOfServiceTypes" type="tns:ArrayOfBL_PlaceOfServiceType" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrTypeOfServiceTypes" type="tns:ArrayOfBL_TypeOfServiceType" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrCredentials" type="tns:ArrayOfBL_Credential" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrSpecializations" type="tns:ArrayOfBL_Specialization" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPayers" type="tns:ArrayOfBL_PayerSummary" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrInsurancePlans" type="tns:ArrayOfBL_InsurancePlan" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrUserOperations" type="tns:ArrayOfBL_UserOperation" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrUserTypesCanCreate" type="tns:ArrayOfBL_UserType" />
+          <s:element minOccurs="0" maxOccurs="1" name="strServiceAgreementText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDiagnosisTypeCodeSetVersion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strServiceTypeCodeSetVersion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrMessageTypes" type="tns:ArrayOfBL_MessageType" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrDocumentTypes" type="tns:ArrayOfBL_DocumentType" />
+          <s:element minOccurs="1" maxOccurs="1" name="lMaxRequestLengthBytes" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_User">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSecurityToken" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserType" type="tns:BL_UserType" />
+          <s:element minOccurs="0" maxOccurs="1" name="Person" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lAffiliatedPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lAffiliatedFacilityID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lAffiliatedProviderID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsLicenseAgreementAccepted" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPasswordChangeRequired" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsLoginEnabled" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Provider" type="tns:BL_Provider" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCAccountExpiryDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSystemAccess" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrUserOperationTypeIDs" type="tns:ArrayOfLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastScheduledEventAction" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDegree" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="BL_eAction">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Add" />
+          <s:enumeration value="Update" />
+          <s:enumeration value="Delete" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="BL_UserType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTypeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCategory" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTestUserType" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sDisplaySequence" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSessionLifespanMinutes" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lWSInactivityTimeoutDurationMinutes" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserInactivityTimeoutDurationMinutes" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrCandidateUserOperationTypeIDs" type="tns:ArrayOfLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfLong">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="long" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Person">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTitleOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOtherTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMiddleInitial" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPreviousLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSuffixOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOtherSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmployerOrSchoolName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmployerOrSchoolDepartment" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strJobTitle" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MailingAddress" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="PhysicalAddress" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhoneExtension" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficeFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomeFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPager" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAlternateEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSSNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMaritalStatusOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGenderOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCBirth" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLanguageOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEthnicityOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhotograph" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNotes" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsEmailVerificationRequired" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPreferredLanguageID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lEthnicityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrRaces" type="tns:ArrayOfBL_Race" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Address">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCounty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAreaCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCountry" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Race">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Race" nillable="true" type="tns:BL_Race" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Race">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strRaceName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCensusID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Provider">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lFacilityID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsRendering" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsReferring" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bFacilityProviderIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="0" maxOccurs="1" name="Person" type="tns:BL_Person" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPrimarySpecialization" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSecondarySpecialization" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lCredentialID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strProviderNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNPI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUPIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateLicense" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDEANumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateIndustrialAccidentIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicareIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicaidIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCHAMPUSIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="strEmdeonIdentifier" nillable="true" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCMedicareParticipation" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCSignature" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrFavoriteDiagnosisTypeIDs" type="tns:ArrayOfLong" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrFavoriteServiceTypeIDs" type="tns:ArrayOfLong" />
+          <s:element minOccurs="1" maxOccurs="1" name="bProviderIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bProviderIsAdministrator" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="sEditLevel" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEditLevel" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPayerProviders" type="tns:ArrayOfBL_PayerProvider" />
+          <s:element minOccurs="1" maxOccurs="1" name="bCanReviewRx" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bCanReviewLabs" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PayerProvider">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PayerProvider" nillable="true" type="tns:BL_PayerProvider" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PayerProvider">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lPayerID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lProviderID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strProviderIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Practice">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="Community" type="tns:BL_Community" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsProductionStatus" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPracticeIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MainContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="BillingContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClaimsContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNPI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUPIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDefaultSystemAccess" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sWeekStartDay" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="strWorkDays" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sWorkDayStartTime" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="sWorkDayEndTime" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="sScheduleBlockInterval" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="sDefaultAppointmentDuration" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="sTimeZoneOffsetFromUTC" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDefaultAddressCounty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDefaultAddressCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDefaultAddressState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDefaultAddressCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPaperClaimFormOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateIndustrialAccidentIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateLicense" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicareIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicaidIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCHAMPUSIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastScheduledEventAction" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsShownTextAds" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsShownImageAds" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsShownVideoAds" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrFacilities" type="tns:ArrayOfBL_Facility" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPatients" type="tns:ArrayOfBL_PatientSummary" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPracticePayer" type="tns:ArrayOfBL_PracticePayer" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhoneNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFaxNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTimeZoneVerified" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsDaylightSavingsObserved" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrFacilityBasics" type="tns:ArrayOfBL_FacilityBasic" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Community">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="tns:BL_Person" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryLocationAddress" type="tns:BL_Address" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Facility">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Facility" nillable="true" type="tns:BL_Facility" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Facility">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="PlaceOfServiceType" type="tns:BL_PlaceOfServiceType" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFacilityTypeOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Address" type="tns:BL_Address" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strNPI" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUPIN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateIndustrialAccidentIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strStateLicense" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicareIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMedicaidIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCHAMPUSIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastScheduledEventAction" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrProviders" type="tns:ArrayOfBL_Provider" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrResources" type="tns:ArrayOfBL_FacilityResource" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrAssistants" type="tns:ArrayOfBL_User" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrPayerFacilities" type="tns:ArrayOfBL_PayerFacility" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PlaceOfServiceType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Provider">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Provider" nillable="true" type="tns:BL_Provider" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_FacilityResource">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_FacilityResource" nillable="true" type="tns:BL_FacilityResource" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_FacilityResource">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lFacilityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFacilityResourceTypeOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsDoubleBookable" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTripleBookable" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtLastScheduledEventAction" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_User" nillable="true" type="tns:BL_User" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PayerFacility">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PayerFacility" nillable="true" type="tns:BL_PayerFacility" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PayerFacility">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lPayerID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lFacilityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFacilityIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PatientSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PatientSummary" nillable="true" type="tns:BL_PatientSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PatientSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsTestPatient" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strIdentifier" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCBirth" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strGenderOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strHomePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhoneExt" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMobilePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSSNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhysicalAddress" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAlternateEmailAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strMiddleName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsOwner" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhoto" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtChartLastPulled" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strExternalReferenceGUID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PracticePayer">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PracticePayer" nillable="true" type="tns:BL_PracticePayer" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PracticePayer">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPayerID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCCreationDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCEffectiveFromDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCEffectiveToDate" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPayerGroupIdentifier" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPreferGroupIdentifier" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsAutoSubmitToSecondPayer" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsAutoSubmitToThirdPayer" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPrintToClaimForm" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPrintClaimFontOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPreviewClaimFontOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPrintClaimTextColorOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPreviewClaimTextColorOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPrintClaimTextUpperCase" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPreviewClaimTextUpperCase" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_FacilityBasic">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_FacilityBasic" nillable="true" type="tns:BL_FacilityBasic" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_FacilityBasic">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFacilityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAddress3" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCity" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCounty" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCountry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strZipCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsPrimary" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficePhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strOfficeFax" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_ScheduledEventType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_ScheduledEventType" nillable="true" type="tns:BL_ScheduledEventType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_ScheduledEventType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTypeName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCategoryName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sDisplaySequence" type="s:short" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTypeDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCategoryDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Option">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Option" nillable="true" type="tns:BL_Option" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Option">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strCategory" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="sDisplaySequence" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsDefault" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PlaceOfServiceType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PlaceOfServiceType" nillable="true" type="tns:BL_PlaceOfServiceType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_TypeOfServiceType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_TypeOfServiceType" nillable="true" type="tns:BL_TypeOfServiceType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_TypeOfServiceType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Credential">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Credential" nillable="true" type="tns:BL_Credential" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Credential">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDescription" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="nUseCount" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_PayerSummary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_PayerSummary" nillable="true" type="tns:BL_PayerSummary" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_PayerSummary">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_InsurancePlan">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_InsurancePlan" nillable="true" type="tns:BL_InsurancePlan" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_InsurancePlan">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="eAction" type="tns:BL_eAction" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPayerID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lContactPersonID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsuranceTypeOption" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strInsurancePaymentTypeOption" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dPaymentAmountAbsolute" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="sPaymentAmountPercentage" type="s:short" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualDeductible" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualOutOfPocketLimit" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dAnnualMaximum" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="dLifetimeMaximum" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsBilledAutomatically" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsActive" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsValidated" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="lCreatingPracticeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_UserOperation">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_UserOperation" nillable="true" type="tns:BL_UserOperation" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_UserOperation">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserOperationTypeID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bIsAuthorized" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUserOperationTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="dtUTCLastModified" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_UserType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_UserType" nillable="true" type="tns:BL_UserType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_MessageType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_MessageType" nillable="true" type="tns:BL_MessageType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_MessageType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strTypeName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="bAllowCreate" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_DocumentType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_DocumentType" nillable="true" type="tns:BL_DocumentType" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_DocumentType">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strDocumentType" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_LabProfile">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="bHasAgreedToEULA" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="arrLabAccounts" type="tns:ArrayOfBL_LabAccount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_LabAccount">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_LabAccount" nillable="true" type="tns:BL_LabAccount" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_LabAccount">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lEntityID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAccountName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLabName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_User_Permission">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_User_Permission" nillable="true" type="tns:BL_User_Permission" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_User_Permission">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="arrPermissions" type="tns:ArrayOfBL_Permission" />
+          <s:element minOccurs="1" maxOccurs="1" name="lUserID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="iEditLevel" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Permission">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Permission" nillable="true" type="tns:BL_Permission" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Permission">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="arrActions" type="tns:ArrayOfBL_Action" />
+          <s:element minOccurs="0" maxOccurs="1" name="strResource" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Action">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Action" nillable="true" type="tns:BL_Action" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Action">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strCode" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfBL_Advertisement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_Advertisement" nillable="true" type="tns:BL_Advertisement" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_Advertisement">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strAdLocationCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strAdUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UserLoginQuick">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPracticeID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strClientVersion" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserLoginQuickResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLoginQuickResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_UserQuick" type="tns:BL_UserQuick" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_lUserCRMRole" type="s:long" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_LabProfile" type="tns:BL_LabProfile" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAnnouncements" type="tns:ArrayOfBL_Announcement" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPracticePermission" type="tns:ArrayOfBL_User_Permission" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrUserPermission" type="tns:ArrayOfBL_Permission" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAd" type="tns:ArrayOfBL_Advertisement" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bIs100ChartPulls" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strExternalUserGuid" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_UserQuick">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="lUserId" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strSuffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strFullName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lPracticeId" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="lProviderId" type="s:long" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UserSignup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_SignUp" type="tns:BL_SignUp" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strClientVersion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPartnerCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strEntryCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="BL_SignUp">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strFirstName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strLastName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPhone" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="lSpecialtyID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="bAreTermsAgreedTo" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UserSignupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserSignupResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strPracticeIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strTempPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_strExternalUserGuid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_UserProfile" type="tns:BL_UserProfile" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrAd" type="tns:ArrayOfBL_Advertisement" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrPracticePermission" type="tns:ArrayOfBL_User_Permission" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrUserPermission" type="tns:ArrayOfBL_Permission" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AreNewUserSignupsEnabled">
+        <s:complexType />
+      </s:element>
+      <s:element name="AreNewUserSignupsEnabledResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AreNewUserSignupsEnabledResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_bEnabled" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScreenUnlock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPracticeIdentifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScreenUnlockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ScreenUnlockResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="1" maxOccurs="1" name="o_Success" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserAcceptLicenseAgreement">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserAcceptLicenseAgreementResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserAcceptLicenseAgreementResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserChangePassword">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strCurrentPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="i_strNewPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserChangePasswordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserChangePasswordResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UserLogout">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+            <s:element minOccurs="1" maxOccurs="1" name="i_eReason" type="tns:LogoutReason" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="LogoutReason">
+        <s:restriction base="s:string">
+          <s:enumeration value="UserRequested" />
+          <s:enumeration value="InactivityTimeout" />
+          <s:enumeration value="LicenseAgreementNotAccepted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="UserLogoutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UserLogoutResult" type="tns:WebServiceResponse" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVendorLogoByPartner">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_strPartnerCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVendorLogoByPartnerResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVendorLogoByPartnerResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrVendorLogo" type="tns:ArrayOfBL_VendorLogo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBL_VendorLogo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="BL_VendorLogo" nillable="true" type="tns:BL_VendorLogo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="BL_VendorLogo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="VendorLogoID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorBrandID" type="s:long" />
+          <s:element minOccurs="1" maxOccurs="1" name="VendorLogoTypeID" type="s:long" />
+          <s:element minOccurs="0" maxOccurs="1" name="VendorLogoTypeUseCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="LogoFile" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVendorLogoByUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="i_Session" type="tns:BL_Session" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVendorLogoByUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVendorLogoByUserResult" type="tns:WebServiceResponse" />
+            <s:element minOccurs="0" maxOccurs="1" name="o_arrVendorLogo" type="tns:ArrayOfBL_VendorLogo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAnnouncementsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAnnouncements" />
+  </wsdl:message>
+  <wsdl:message name="GetAnnouncementsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAnnouncementsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPublicAnnouncementsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPublicAnnouncements" />
+  </wsdl:message>
+  <wsdl:message name="GetPublicAnnouncementsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPublicAnnouncementsResponse" />
+  </wsdl:message>
+  <wsdl:message name="LogAnnouncementSoapIn">
+    <wsdl:part name="parameters" element="tns:LogAnnouncement" />
+  </wsdl:message>
+  <wsdl:message name="LogAnnouncementSoapOut">
+    <wsdl:part name="parameters" element="tns:LogAnnouncementResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceInformationSoapIn">
+    <wsdl:part name="parameters" element="tns:GetWebServiceInformation" />
+  </wsdl:message>
+  <wsdl:message name="GetWebServiceInformationSoapOut">
+    <wsdl:part name="parameters" element="tns:GetWebServiceInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapIn">
+    <wsdl:part name="parameters" element="tns:Ping" />
+  </wsdl:message>
+  <wsdl:message name="PingSoapOut">
+    <wsdl:part name="parameters" element="tns:PingResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSecurityQuestionSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserSecurityQuestion" />
+  </wsdl:message>
+  <wsdl:message name="GetUserSecurityQuestionSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserSecurityQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="ValidateSecurityQuestionAndAnswerSoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateSecurityQuestionAndAnswer" />
+  </wsdl:message>
+  <wsdl:message name="ValidateSecurityQuestionAndAnswerSoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateSecurityQuestionAndAnswerResponse" />
+  </wsdl:message>
+  <wsdl:message name="SunriseSignupSoapIn">
+    <wsdl:part name="parameters" element="tns:SunriseSignup" />
+  </wsdl:message>
+  <wsdl:message name="SunriseSignupSoapOut">
+    <wsdl:part name="parameters" element="tns:SunriseSignupResponse" />
+  </wsdl:message>
+  <wsdl:message name="PreLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:PreLogin" />
+  </wsdl:message>
+  <wsdl:message name="PreLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:PreLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:UserLogin" />
+  </wsdl:message>
+  <wsdl:message name="UserLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:UserLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserLoginQuickSoapIn">
+    <wsdl:part name="parameters" element="tns:UserLoginQuick" />
+  </wsdl:message>
+  <wsdl:message name="UserLoginQuickSoapOut">
+    <wsdl:part name="parameters" element="tns:UserLoginQuickResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserSignupSoapIn">
+    <wsdl:part name="parameters" element="tns:UserSignup" />
+  </wsdl:message>
+  <wsdl:message name="UserSignupSoapOut">
+    <wsdl:part name="parameters" element="tns:UserSignupResponse" />
+  </wsdl:message>
+  <wsdl:message name="AreNewUserSignupsEnabledSoapIn">
+    <wsdl:part name="parameters" element="tns:AreNewUserSignupsEnabled" />
+  </wsdl:message>
+  <wsdl:message name="AreNewUserSignupsEnabledSoapOut">
+    <wsdl:part name="parameters" element="tns:AreNewUserSignupsEnabledResponse" />
+  </wsdl:message>
+  <wsdl:message name="ScreenUnlockSoapIn">
+    <wsdl:part name="parameters" element="tns:ScreenUnlock" />
+  </wsdl:message>
+  <wsdl:message name="ScreenUnlockSoapOut">
+    <wsdl:part name="parameters" element="tns:ScreenUnlockResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserAcceptLicenseAgreementSoapIn">
+    <wsdl:part name="parameters" element="tns:UserAcceptLicenseAgreement" />
+  </wsdl:message>
+  <wsdl:message name="UserAcceptLicenseAgreementSoapOut">
+    <wsdl:part name="parameters" element="tns:UserAcceptLicenseAgreementResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserChangePasswordSoapIn">
+    <wsdl:part name="parameters" element="tns:UserChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="UserChangePasswordSoapOut">
+    <wsdl:part name="parameters" element="tns:UserChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserLogoutSoapIn">
+    <wsdl:part name="parameters" element="tns:UserLogout" />
+  </wsdl:message>
+  <wsdl:message name="UserLogoutSoapOut">
+    <wsdl:part name="parameters" element="tns:UserLogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVendorLogoByPartnerSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVendorLogoByPartner" />
+  </wsdl:message>
+  <wsdl:message name="GetVendorLogoByPartnerSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVendorLogoByPartnerResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVendorLogoByUserSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVendorLogoByUser" />
+  </wsdl:message>
+  <wsdl:message name="GetVendorLogoByUserSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVendorLogoByUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="PingHttpGetIn" />
+  <wsdl:message name="PingHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PingHttpPostIn" />
+  <wsdl:message name="PingHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PracticeManagementSoap">
+    <wsdl:operation name="GetAnnouncements">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get announcements for specified target date.</wsdl:documentation>
+      <wsdl:input message="tns:GetAnnouncementsSoapIn" />
+      <wsdl:output message="tns:GetAnnouncementsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPublicAnnouncements">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get public announcements.</wsdl:documentation>
+      <wsdl:input message="tns:GetPublicAnnouncementsSoapIn" />
+      <wsdl:output message="tns:GetPublicAnnouncementsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LogAnnouncement">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log fact that an announcement was presented to a user.</wsdl:documentation>
+      <wsdl:input message="tns:LogAnnouncementSoapIn" />
+      <wsdl:output message="tns:LogAnnouncementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceInformation">
+      <wsdl:input message="tns:GetWebServiceInformationSoapIn" />
+      <wsdl:output message="tns:GetWebServiceInformationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A test method to see if the WS is accessible. Returns useful HTTP information.</wsdl:documentation>
+      <wsdl:input message="tns:PingSoapIn" />
+      <wsdl:output message="tns:PingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSecurityQuestion">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get security question for specified user.</wsdl:documentation>
+      <wsdl:input message="tns:GetUserSecurityQuestionSoapIn" />
+      <wsdl:output message="tns:GetUserSecurityQuestionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSecurityQuestionAndAnswer">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Validate that the security answer is correct for the security question.</wsdl:documentation>
+      <wsdl:input message="tns:ValidateSecurityQuestionAndAnswerSoapIn" />
+      <wsdl:output message="tns:ValidateSecurityQuestionAndAnswerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SunriseSignup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Submits the user's Sunrise request form.</wsdl:documentation>
+      <wsdl:input message="tns:SunriseSignupSoapIn" />
+      <wsdl:output message="tns:SunriseSignupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PreLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Lightweight call to get info for login screen.</wsdl:documentation>
+      <wsdl:input message="tns:PreLoginSoapIn" />
+      <wsdl:output message="tns:PreLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in a Practice Fusion user, returning the session object to use for all subsequent WS calls, and the UserProfile object tree.</wsdl:documentation>
+      <wsdl:input message="tns:UserLoginSoapIn" />
+      <wsdl:output message="tns:UserLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserLoginQuick">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log in a Practice Fusion user, returning the session object to use for all subsequent WS calls, and the UserProfile object tree.</wsdl:documentation>
+      <wsdl:input message="tns:UserLoginQuickSoapIn" />
+      <wsdl:output message="tns:UserLoginQuickSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserSignup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Sign up a new Practice Fusion user, returning the session object, practice identifier, and the UserProfile object tree.</wsdl:documentation>
+      <wsdl:input message="tns:UserSignupSoapIn" />
+      <wsdl:output message="tns:UserSignupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AreNewUserSignupsEnabled">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Determines if the system is allowing new users to sign up.</wsdl:documentation>
+      <wsdl:input message="tns:AreNewUserSignupsEnabledSoapIn" />
+      <wsdl:output message="tns:AreNewUserSignupsEnabledSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ScreenUnlock">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">User unlocks EHR lock screen.</wsdl:documentation>
+      <wsdl:input message="tns:ScreenUnlockSoapIn" />
+      <wsdl:output message="tns:ScreenUnlockSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserAcceptLicenseAgreement">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Notify that the user has accepted the Practice Fusion license agreement.</wsdl:documentation>
+      <wsdl:input message="tns:UserAcceptLicenseAgreementSoapIn" />
+      <wsdl:output message="tns:UserAcceptLicenseAgreementSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserChangePassword">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Change the user's password.</wsdl:documentation>
+      <wsdl:input message="tns:UserChangePasswordSoapIn" />
+      <wsdl:output message="tns:UserChangePasswordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UserLogout">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Log out a user explicity, specifying the reason for the UI event (user request, inactivity timeout, etc.).</wsdl:documentation>
+      <wsdl:input message="tns:UserLogoutSoapIn" />
+      <wsdl:output message="tns:UserLogoutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByPartner">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get logo files for specified partner code.</wsdl:documentation>
+      <wsdl:input message="tns:GetVendorLogoByPartnerSoapIn" />
+      <wsdl:output message="tns:GetVendorLogoByPartnerSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByUser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get logo files for specified partner code.</wsdl:documentation>
+      <wsdl:input message="tns:GetVendorLogoByUserSoapIn" />
+      <wsdl:output message="tns:GetVendorLogoByUserSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PracticeManagementHttpGet">
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A test method to see if the WS is accessible. Returns useful HTTP information.</wsdl:documentation>
+      <wsdl:input message="tns:PingHttpGetIn" />
+      <wsdl:output message="tns:PingHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PracticeManagementHttpPost">
+    <wsdl:operation name="Ping">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">A test method to see if the WS is accessible. Returns useful HTTP information.</wsdl:documentation>
+      <wsdl:input message="tns:PingHttpPostIn" />
+      <wsdl:output message="tns:PingHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PracticeManagementSoap" type="tns:PracticeManagementSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAnnouncements">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetAnnouncements" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPublicAnnouncements">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPublicAnnouncements" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogAnnouncement">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/LogAnnouncement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceInformation">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetWebServiceInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/Ping" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSecurityQuestion">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetUserSecurityQuestion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSecurityQuestionAndAnswer">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ValidateSecurityQuestionAndAnswer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SunriseSignup">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SunriseSignup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreLogin">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PreLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLoginQuick">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLoginQuick" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserSignup">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserSignup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreNewUserSignupsEnabled">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/AreNewUserSignupsEnabled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScreenUnlock">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ScreenUnlock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserAcceptLicenseAgreement">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserAcceptLicenseAgreement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserChangePassword">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserChangePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLogout">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLogout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByPartner">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetVendorLogoByPartner" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByUser">
+      <soap:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetVendorLogoByUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PracticeManagementSoap12" type="tns:PracticeManagementSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAnnouncements">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetAnnouncements" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPublicAnnouncements">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetPublicAnnouncements" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogAnnouncement">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/LogAnnouncement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetWebServiceInformation">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetWebServiceInformation" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Ping">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/Ping" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserSecurityQuestion">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetUserSecurityQuestion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateSecurityQuestionAndAnswer">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ValidateSecurityQuestionAndAnswer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SunriseSignup">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/SunriseSignup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PreLogin">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/PreLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLoginQuick">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLoginQuick" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserSignup">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserSignup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AreNewUserSignupsEnabled">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/AreNewUserSignupsEnabled" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScreenUnlock">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/ScreenUnlock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserAcceptLicenseAgreement">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserAcceptLicenseAgreement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserChangePassword">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UserLogout">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/UserLogout" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByPartner">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetVendorLogoByPartner" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVendorLogoByUser">
+      <soap12:operation soapAction="http://PracticeFusion.com/BusinessLogic/WebServices/GetVendorLogoByUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PracticeManagementHttpGet" type="tns:PracticeManagementHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Ping">
+      <http:operation location="/Ping" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PracticeManagementHttpPost" type="tns:PracticeManagementHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Ping">
+      <http:operation location="/Ping" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PracticeManagement">
+    <wsdl:port name="PracticeManagementSoap" binding="tns:PracticeManagementSoap">
+      <soap:address location="https://pfws.practicefusion.com/emr/2.0.45.1/PracticeManagement.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PracticeManagementSoap12" binding="tns:PracticeManagementSoap12">
+      <soap12:address location="https://pfws.practicefusion.com/emr/2.0.45.1/PracticeManagement.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PracticeManagementHttpGet" binding="tns:PracticeManagementHttpGet">
+      <http:address location="https://pfws.practicefusion.com/emr/2.0.45.1/PracticeManagement.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PracticeManagementHttpPost" binding="tns:PracticeManagementHttpPost">
+      <http:address location="https://pfws.practicefusion.com/emr/2.0.45.1/PracticeManagement.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

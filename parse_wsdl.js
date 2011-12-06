@@ -59,7 +59,8 @@ fs.readFile(infile, function(err, data) {
 	wsdl.messages = {};
 	var messages= r['wsdl:message'];
 	messages.forEach(function(message) {
-	    wsdl.messages[message['@'].name] = message['wsdl:part'][0]['@'].element;
+	    if (message['wsdl:part'])
+		wsdl.messages[message['@'].name] = message['wsdl:part'][0]['@'].element;
 	});
 
 	var bindings = r['wsdl:binding'];
