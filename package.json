@@ -1,9 +1,9 @@
 {
     "name": "smart_pf", 
-    "license": "MPL 1.1/GPL 2.0/LGPL 2.1", 
-    "author": "", 
+    "license": "Apache 2.0", 
+    "author": "Josh Mandel", 
     "version": "0.1", 
     "fullName": "smart_pf", 
     "id": "jid0-8t6HbbWhAXKtKBow1jgzdncZLGs", 
-    "description": "a basic add-on"
+    "description": "Allow users to run Web apps on the Practice Fusion Electronic Medical Record system"
 }

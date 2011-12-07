@@ -5,7 +5,7 @@
     <STYLE TYPE="text/css" MEDIA=screen>
 	body
 	{
-		background-image:url('http://sandbox.smartplatforms.org/static/smart_ui_server/resources/images/badges/SMArt-Logo.png');
+		background-image:url('smart_logo.png');
 		background-repeat:no-repeat;
 		background-position:right top;
 		padding-right: 145px;
@@ -17,7 +17,44 @@
 	li a {text-decoration: none;}
 	li img {position: relative; top: 10px;}
     </STYLE>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+console.log("PF Window loading joshj");
+josh = "OK";
+
+ready = function(){
+  port.on("show",  function(m){
+	if (m.LoggedIn) {
+		$("#NeedLogin").hide();
+		$("#AfterLogin").show();
+		PatientList = m.PatientList;
+		var s = "Patient: <select id='CurrentPatientID'>";
+
+                if (m.Patient)
+                   $("#PatientChoice").html(m.Patient);
+                else $("#PatientChoice").html("No patient selected");           
+	}
+});
+
+
+
+
+};
+
+ clicked = function(app_id) {
+   port.emit("launchapp", app_id);
+//	postToPlugin({LaunchApp: {patient: $("#CurrentPatientID").val(), app: app_id}});
+};
+
+pflogin = function() {
+  port.emit("redirectToPF");
+//	postToPlugin({RedirectToPF: true});
+};
+
+
+</script>
+<script src="jquery.min.js"></script>
+
+
 </head>
 <body>
 <div id='NeedLogin'>
@@ -27,45 +64,22 @@ Please Log in to <br> <a onclick='javascript:pflogin();' href="#">PracticeFusion
 <span id='PatientChoice'>No Patients Available...</span>
 <ul>
 <li>
-<a href="#" type="submit" value="Got Statins?"  onclick="javascript:clicked('got-statins@apps.smart.org');">
+<a href="#" type="submit" value="Backfill Growth Data"  onclick="javascript:clicked('apps/chart_old_vitals.html');">
 	<img src="http://sample-apps.smartplatforms.org/framework/got_statins/icon.png">
-	Got Statins?
+	Back-fill Growth Data
 </a>
-</li><li>
+</li>
+
+<!--<li>
 <a href="#" type="submit" value="Med List"  onclick="javascript:clicked('medlist@apps.smart.org');">
 	<img src="http://sample-apps.smartplatforms.org/framework/med_list/icon.png">
 	Med List
 </a>
 </li>
+-->
 </ul>
 
 </div>
-<script>
-var doMessage = function(m){
-	if (m.LoggedIn && m.PatientList) {
-		$("#NeedLogin").hide();
-		$("#AfterLogin").show();
-		PatientList = m.PatientList;
-		var s = "Patient: <select id='CurrentPatientID'>";
-		
-		for (var p in PatientList){ 
-                        p = PatientList[p]; 
-			s += "<option value='"+p.id+"'>"+p.givenName+" "+p.familyName+"</option>";
-		}
-		
-		s +="</select>";
-		$("#PatientChoice").html(s);
-	}
-};
-
-var clicked = function(app_id) {
-	postToPlugin({LaunchApp: {patient: $("#CurrentPatientID").val(), app: app_id}});
-};
-
-var pflogin = function() {
-	postToPlugin({RedirectToPF: true});
-};
-</script>
 
 </body>
 </html>

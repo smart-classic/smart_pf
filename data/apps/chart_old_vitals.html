@@ -1,9 +1,9 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
-<script src="pf_wsdl.js"></script>
-<script src="Chart.js"></script>
-<script src="Patient.js"></script>
+<script src="../lib/pf_wsdl.js"></script>
+<script src="../lib/Chart.js"></script>
+<script src="../lib/Patient.js"></script>
 <style>
   body {margin: 0px; font-family: sans-serif;}
 
@@ -20,6 +20,14 @@
   #chart {
   max-width: 100%;
   max-height: 100%;
+  }
+
+  #name {
+    background: white;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 2em;
   }
 
   #next {background: yellow; padding: 1em;}
@@ -65,6 +73,7 @@
 </head>
 
 <body>
+  <div id='name'>Loading patient...</div>
   <div id='status'></div>
 
 
@@ -181,6 +190,7 @@ jQuery(document).ready(function(){
     });
 })
 
+/*
 PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
   'strToken':"cd8a0f4b1266438c955e5fc89424ea0f5e45c084af3b415f88538576f1d4fd9a",
   'dtUTCExpiryDate':"9999",
@@ -191,6 +201,7 @@ PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
   'i_lProviderID': 220765,
   'i_lPracticeID': 120667,
 };
+*/
 
 var formatDate = function(d)  {
   var curr_date = d.getDate();
@@ -199,12 +210,20 @@ var formatDate = function(d)  {
   return(curr_month + "/" + curr_date + "/" + curr_year);
 }
 
-PF.Patient.call('PatientBasicGetByPatientID').done(
-  function(pat_response) {
-    console.log(pat_response);
-    console.log("Born on: " + pat_response.o_PatientBasic.dtDateOfBirth);
-    birthday = pat_response.o_PatientBasic.dtDateOfBirth;
-  });
+PF.ready().then(function(patient_id){
+  console.log("PF Ready!");
+  console.log(PF.defaults);
+
+  PF.Patient.call('PatientBasicGetByPatientID').done(
+    function(pat_response) {
+      console.log(pat_response);
+      console.log("Born on: " + pat_response.o_PatientBasic.dtDateOfBirth);
+      birthday = pat_response.o_PatientBasic.dtDateOfBirth;
+      $("#name").text(pat_response.o_PatientBasic.strFirstName+ " " + 
+                      pat_response.o_PatientBasic.strLastName);
+    });
+});
+
 
 $("#addToPF").click(function(){
   $(".toSubmit").each(function(){
@@ -270,7 +289,6 @@ PF.Chart.call(
 
 /*
 
- 
 
 PF.Chart.call(
   'GetPatientMedications', { 
