@@ -1,1 +1,0 @@
-doMessage({PluginAttached: true});

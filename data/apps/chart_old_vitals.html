@@ -1,9 +1,9 @@
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-1.7.min.js"></script>
-<script src="../lib/pf_wsdl.js"></script>
-<script src="../lib/Chart.js"></script>
-<script src="../lib/Patient.js"></script>
+<script src="../shared/pf_wsdl.js"></script>
+<script src="../shared/Chart.js"></script>
+<script src="../shared/Patient.js"></script>
 <style>
   body {margin: 0px; font-family: sans-serif;}
 
@@ -168,12 +168,9 @@ jQuery(document).ready(function(){
       if (mode == 'date') {
         mode = 'height';
         $("#next #vHeight").addClass('active');
-        console.log("hdot");
-        console.log($("#weightrule").offset());
-        console.log($("#daterule").offset());
         $("body").append($("<div class='weightdot'></div>").css({
-           left:  $("#daterule").offset().left,
-           top:  $("#weightrule").offset().top
+           left:  $("#daterule").offset().left-8,
+           top:  $("#weightrule").offset().top-8
         }));
       }
 
@@ -183,25 +180,12 @@ jQuery(document).ready(function(){
         $("#next #vDate").addClass('active');
 
         $("body").append($("<div class='heightdot'></div>").css({
-           left:  $("#daterule").offset().left,
-           top:  $("#heightrule").offset().top
+           left:  $("#daterule").offset().left-8,
+           top:  $("#heightrule").offset().top-8
         }));
       }
     });
 })
-
-/*
-PF.Chart.interface.defaults =  PF.Patient.interface.defaults = {
-  'strToken':"cd8a0f4b1266438c955e5fc89424ea0f5e45c084af3b415f88538576f1d4fd9a",
-  'dtUTCExpiryDate':"9999",
-  'lWSCallSequenceNumber':0,
-  'lUserID':220707,
-  'lPatientID': 29524145,
-  'i_lPatientID': 29524145,
-  'i_lProviderID': 220765,
-  'i_lPracticeID': 120667,
-};
-*/
 
 var formatDate = function(d)  {
   var curr_date = d.getDate();
@@ -286,44 +270,5 @@ PF.Chart.call(
   return ret;
 }
 
-
-/*
-
-
-PF.Chart.call(
-  'GetPatientMedications', { 
-     'i_bIncludePrescriptions': true}).done(
-    
-   function(med_response) {
-      console.log(med_response);
-      var meds = med_response.o_arrPatientMedication.BL_PatientMedication;
-      meds.forEach(function(m) {
-        console.log(m.strMedName); 
-      });
-   }
-);
-
-
-PF.Chart.call(
-  'GetStandardVitalsByPatient', {  
-      'i_bReturnAll': true,
-      'i_lStartRowIndex': 0}).done(
-    
-   function(vitals_response) {
-      console.log(vitals_response);
-      var vits = vitals_response.o_arrVitals.BL_VitalsStandard;
-      vits.forEach(function(v) {
-
-        if (v.iDiastolicBloodPressure == -1) return;
-
-        console.log(v.dtDateOfService  + ": " + 
-                    v.iSystolicBloodPressure + "/" + v.iDiastolicBloodPressure); 
-      });
-   }
-);
-
-
-*/
 </script>
-
 </html>

@@ -10,6 +10,7 @@ unsafeWindow.proxyRequestToPlugin = function(req, d) {
 
 self.port.on("proxy_response", function(r) {
     var d = self.pending_requests[r.id];
+    delete self.pending_requests[r.id];
     if (r.status === 200) {
 	d.resolve(r.data);
     } else {
@@ -19,13 +20,8 @@ self.port.on("proxy_response", function(r) {
 
 self.port.on("defaults", function(defaults){
     console.log("App got defaults");
-    console.log(JSON.stringify(defaults));
-    console.log(Object.keys(unsafeWindow));
     if (defaults) {
-	console.log("And really defaults");
 	unsafeWindow.PF.defaults = defaults;
-	console.log(Object.keys(unsafeWindow.PF));
 	unsafeWindow.PF.triggerReady();
-	console.log("And Triggered ready.");
     }
 });

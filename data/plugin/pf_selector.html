@@ -40,14 +40,12 @@ ready = function(){
 
 };
 
- clicked = function(app_id) {
+clicked = function(app_id) {
    port.emit("launchapp", app_id);
-//	postToPlugin({LaunchApp: {patient: $("#CurrentPatientID").val(), app: app_id}});
 };
 
 pflogin = function() {
   port.emit("redirectToPF");
-//	postToPlugin({RedirectToPF: true});
 };
 
 
