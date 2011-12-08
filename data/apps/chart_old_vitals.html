@@ -194,7 +194,7 @@ var formatDate = function(d)  {
   return(curr_month + "/" + curr_date + "/" + curr_year);
 }
 
-PF.ready().then(function(patient_id){
+PF.ready.then(function(patient_id){
   console.log("PF Ready!");
   console.log(PF.defaults);
 

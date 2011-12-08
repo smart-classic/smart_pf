@@ -22,6 +22,6 @@ self.port.on("defaults", function(defaults){
     console.log("App got defaults");
     if (defaults) {
 	unsafeWindow.PF.defaults = defaults;
-	unsafeWindow.PF.triggerReady();
+	unsafeWindow.PF.ready.resolve();
     }
 });
